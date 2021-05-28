@@ -6,12 +6,16 @@ const formsTheme = {
     },
   },
   textarea: {
+    color: 'forms',
     resize: 'none',
     width: '80%',
     margin: '20px auto',
     backgroundColor: 'muted',
     fontSize: 5,
     maxHeight: '60vh',
+  },
+  select: {
+    color: 'forms',
   },
 };
 

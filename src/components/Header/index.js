@@ -16,11 +16,14 @@ function Header() {
         left: 0,
         width: '100vw',
         padding: '10px 15px',
+        zIndex: '10',
       }}
     >
       <Flex as='nav' sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <Button variant='primary'>Konfiguracja konta</Button>
+          <Button aria-label='Konfiguracja konta' variant='primary'>
+            Konfiguracja konta
+          </Button>
         </Box>
         <Box>
           <Switch onChange={handleChangeColor} />
