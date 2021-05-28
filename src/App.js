@@ -1,10 +1,15 @@
 import React from 'react';
+import { ThemeProvider } from 'theme-ui';
+import theme from './theme/theme';
+import Home from './containers/Home';
 
 function App() {
   return (
-    <div className='App'>
-      <h1>Todo app</h1>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className='App'>
+        <Home />
+      </div>
+    </ThemeProvider>
   );
 }
 
