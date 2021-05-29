@@ -4,6 +4,7 @@ import textTheme from './text.theme';
 import cardsTheme from './cards.theme';
 
 const theme = {
+  breakpoints: ['400px', '1024px', '1296px'],
   colors: {
     text: '#454f5b',
     forms: '#454f5b',
@@ -48,9 +49,9 @@ const theme = {
     },
     a: {
       textDecoration: 'none',
-      fontSize: 3,
+      fontSize: [1, 2, 3, 4],
       fontWeight: 'bold',
-      minHeight: '60px',
+      minHeight: ['100px', '70px'],
       color: 'text',
     },
   },

@@ -2,6 +2,7 @@ const cardsTheme = {
   uncompleted: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     opacity: 0.7,
     padding: '10px 20px',
     backgroundColor: 'lightRed',
@@ -16,6 +17,7 @@ const cardsTheme = {
   completed: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     opacity: 0.7,
     padding: '10px 20px',
     backgroundColor: 'softGreen',

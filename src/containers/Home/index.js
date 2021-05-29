@@ -6,7 +6,7 @@ import SkeletonTasksListPanel from '../../components/SkeletonTasksListPanel';
 
 function Home() {
   return (
-    <Flex>
+    <Flex sx={{ flexWrap: 'wrap' }}>
       <NewTaskPanel />
       <React.Suspense fallback={<SkeletonTasksListPanel />}>
         <TasksListPanel />

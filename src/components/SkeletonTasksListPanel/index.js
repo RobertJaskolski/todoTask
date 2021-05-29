@@ -12,40 +12,57 @@ function SkeletonTasksListPanel() {
     <Box
       as='section'
       bg='muted'
-      sx={{ flexBasis: '60%', height: '100vh', pt: 50, overflow: 'auto' }}
+      sx={{
+        flexBasis: ['100%', null, '60%'],
+        minheight: '100vh',
+        maxHeight: [null, null, '100vh'],
+        pt: 50,
+        overflow: 'auto',
+      }}
     >
+      {/* INFO SECTION */}
       <Box sx={{ width: '90%', margin: '0px auto' }}>
-        <Flex>
+        <Flex sx={{ flexWrap: 'wrap' }}>
+          <Box
+            sx={{
+              flexBasis: ['80%', null, '40%'],
+              fontSize: [3, null, 1, 2],
+              ml: '10px',
+              mb: '10px',
+              fontWeight: 'bold',
+              padding: '10px 20px',
+              opacity: 0,
+            }}
+          >
+            Zakończone
+          </Box>
+          <Box
+            sx={{
+              flexBasis: ['80%', null, '40%'],
+              fontSize: [3, null, 1, 2],
+              ml: '10px',
+              mb: '10px',
+              fontWeight: 'bold',
+              padding: '10px 20px',
+              opacity: 0,
+            }}
+          >
+            Niezakończone:
+          </Box>
           <Box
             sx={{
               fontWeight: 'bold',
               padding: '10px 20px',
               opacity: 0.9,
+              flexBasis: ['100%', null, '33%'],
+              mb: ['10px', null, '0px'],
             }}
           >
             <Switch label='Ukryj zakończone' />
           </Box>
-
-          <Box
-            sx={{
-              width: '170px',
-              ml: '20px',
-              fontWeight: 'bold',
-              padding: '10px 20px',
-              opacity: 0.9,
-            }}
-          ></Box>
-          <Box
-            sx={{
-              width: '190px',
-              ml: '20px',
-              fontWeight: 'bold',
-              padding: '10px 20px',
-              opacity: 0.9,
-            }}
-          ></Box>
         </Flex>
       </Box>
+      {/* PADDING SECTION */}
       <Box
         sx={{
           width: '90%',
@@ -57,22 +74,44 @@ function SkeletonTasksListPanel() {
         <Flex
           sx={{
             alignItems: 'center',
+            flexWrap: 'wrap',
             justifyContent: 'space-between',
             p: '20px',
             minHeight: '80px',
           }}
         >
-          <Box sx={{ fontSize: 1 }}>
+          <Box
+            sx={{
+              fontSize: 1,
+              flexBasis: ['100%', 'auto'],
+              textAlign: 'center',
+              mb: ['10px', '0px'],
+            }}
+          >
             Łącznie: <Spinner sx={{ width: '14px', height: '14px' }} />
           </Box>
-          <Grid columns={[5]}>
-            <IconButton disabled={true}>
+          <Flex sx={{ flexBasis: ['100%', 'auto'] }}>
+            <IconButton
+              sx={{
+                width: ['18%', '30px', '40px'],
+                height: '40px',
+                margin: '0px 5px',
+              }}
+              disabled={true}
+            >
               <BsChevronDoubleLeft />
             </IconButton>
-            <IconButton disabled={true}>
+            <IconButton
+              sx={{
+                width: ['18%', '30px', '40px'],
+                height: '40px',
+                margin: '0px 5px',
+              }}
+              disabled={true}
+            >
               <BsChevronLeft />
             </IconButton>
-            <Select disabled={true} sx={{ width: '55px' }}>
+            <Select sx={{ width: '60px' }}>
               {10 &&
                 [...Array(10).keys()].map((x) => (
                   <option key={x} value={x + 1}>
@@ -80,52 +119,117 @@ function SkeletonTasksListPanel() {
                   </option>
                 ))}
             </Select>
-            <IconButton disabled={true}>
+
+            <IconButton
+              sx={{
+                width: ['18%', '30px', '40px'],
+                height: '40px',
+                margin: '0px 5px 0px 10px',
+              }}
+              disabled={true}
+            >
               <BsChevronRight />
             </IconButton>
-            <IconButton disabled={true}>
+
+            <IconButton
+              sx={{
+                width: ['18%', '30px', '40px'],
+                height: '40px',
+                margin: '0px 5px',
+              }}
+              disabled={true}
+            >
               <BsChevronDoubleRight />
             </IconButton>
-          </Grid>
+          </Flex>
         </Flex>
       </Box>
+      {/* SPINNER SECTION */}
       <Flex sx={{ justifyContent: 'center', alignItems: 'center' }}>
         <Spinner sx={{ width: '80%', height: '80%' }} />
       </Flex>
-      <Flex
+      {/* PADDING SECTION */}
+      <Box
         sx={{
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          p: '20px',
-          minHeight: '80px',
+          width: '90%',
+          margin: '20px auto',
+          bg: 'highlight',
+          borderRadius: '5px',
         }}
       >
-        <Box sx={{ fontSize: 1 }}>
-          Łącznie: <Spinner sx={{ width: '14px', height: '14px' }} />
-        </Box>
-        <Grid columns={[5]}>
-          <IconButton disabled={true}>
-            <BsChevronDoubleLeft />
-          </IconButton>
-          <IconButton disabled={true}>
-            <BsChevronLeft />
-          </IconButton>
-          <Select disabled={true} sx={{ width: '55px' }}>
-            {10 &&
-              [...Array(10).keys()].map((x) => (
-                <option key={x} value={x + 1}>
-                  {x + 1}
-                </option>
-              ))}
-          </Select>
-          <IconButton disabled={true}>
-            <BsChevronRight />
-          </IconButton>
-          <IconButton disabled={true}>
-            <BsChevronDoubleRight />
-          </IconButton>
-        </Grid>
-      </Flex>
+        <Flex
+          sx={{
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            p: '20px',
+            minHeight: '80px',
+          }}
+        >
+          <Box
+            sx={{
+              fontSize: 1,
+              flexBasis: ['100%', 'auto'],
+              textAlign: 'center',
+              mb: ['10px', '0px'],
+            }}
+          >
+            Łącznie: <Spinner sx={{ width: '14px', height: '14px' }} />
+          </Box>
+          <Flex sx={{ flexBasis: ['100%', 'auto'] }}>
+            <IconButton
+              sx={{
+                width: ['18%', '30px', '40px'],
+                height: '40px',
+                margin: '0px 5px',
+              }}
+              disabled={true}
+            >
+              <BsChevronDoubleLeft />
+            </IconButton>
+            <IconButton
+              sx={{
+                width: ['18%', '30px', '40px'],
+                height: '40px',
+                margin: '0px 5px',
+              }}
+              disabled={true}
+            >
+              <BsChevronLeft />
+            </IconButton>
+            <Select sx={{ width: '60px' }}>
+              {10 &&
+                [...Array(10).keys()].map((x) => (
+                  <option key={x} value={x + 1}>
+                    {x + 1}
+                  </option>
+                ))}
+            </Select>
+
+            <IconButton
+              sx={{
+                width: ['18%', '30px', '40px'],
+                height: '40px',
+                margin: '0px 5px 0px 10px',
+              }}
+              disabled={true}
+            >
+              <BsChevronRight />
+            </IconButton>
+
+            <IconButton
+              sx={{
+                width: ['18%', '30px', '40px'],
+                height: '40px',
+                margin: '0px 5px',
+              }}
+              disabled={true}
+            >
+              <BsChevronDoubleRight />
+            </IconButton>
+          </Flex>
+        </Flex>
+      </Box>
     </Box>
   );
 }

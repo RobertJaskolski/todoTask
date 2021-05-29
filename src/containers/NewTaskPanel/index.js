@@ -6,9 +6,10 @@ function NewTaskPanel() {
     <Box
       as='section'
       sx={{
-        flexBasis: '40%',
-        height: '100vh',
+        flexBasis: ['100%', null, '40%'],
+        minHeight: '100vh',
         pt: 100,
+        pb: 50,
         position: 'relative',
       }}
     >

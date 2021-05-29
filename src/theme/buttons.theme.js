@@ -2,6 +2,7 @@ const buttonsTheme = {
   primary: {
     color: 'background',
     bg: 'highlight',
+    fontSize: [0, 2, 3],
     opacity: 0.7,
     transition: 'opacity 0.2s ease-in-out',
     textTransform: 'uppercase',
@@ -27,13 +28,17 @@ const buttonsTheme = {
     color: 'text',
     cursor: 'pointer',
     borderColor: 'text',
-    fontSize: '20px',
     border: '1px solid',
     transition: 'all 0.2s ease-in-out',
     opacity: 0.7,
     '&:hover': {
       opacity: 1,
       color: 'secondary',
+    },
+    '&:disabled': {
+      color: 'text',
+      opacity: 0.7,
+      cursor: 'default',
     },
   },
 };

@@ -12,7 +12,13 @@ function TasksListPanel() {
     <Box
       as='section'
       bg='muted'
-      sx={{ flexBasis: '60%', height: '100vh', pt: 50, overflow: 'auto' }}
+      sx={{
+        flexBasis: ['100%', null, '60%'],
+        minheight: '100vh',
+        maxHeight: [null, null, '100vh'],
+        pt: 50,
+        overflow: 'auto',
+      }}
     >
       <Box sx={{ width: '90%', margin: '0px auto' }}>
         <InfoAboutTasks />
