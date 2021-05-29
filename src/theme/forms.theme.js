@@ -17,6 +17,10 @@ const formsTheme = {
   select: {
     color: 'forms',
   },
+  label: {
+    color: 'forms',
+    fontSize: [3, 3, null, 3],
+  },
 };
 
 export default formsTheme;

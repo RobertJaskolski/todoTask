@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, IconButton } from 'theme-ui';
+import { Card, IconButton, Box } from 'theme-ui';
 import Link from '../Link';
 import { FiTrash2, FiCheck } from 'react-icons/fi';
 
@@ -7,10 +7,14 @@ function TaskListItem({ title, id, completed }) {
   return (
     <Card variant={completed ? 'completed' : 'uncompleted'}>
       <Link
-        sx={{ flexBasis: '90%', display: 'flex', alignItems: 'center' }}
+        sx={{
+          flexBasis: '88%',
+          display: 'flex',
+          alignItems: 'center',
+        }}
         to={`/todo/${id}`}
       >
-        {title}
+        <Box sx={{ overflowWrap: 'break-word' }}>{title}</Box>
       </Link>
       <IconButton
         aria-label={
@@ -21,7 +25,7 @@ function TaskListItem({ title, id, completed }) {
           borderLeft: '2px solid',
           borderLeftColor: 'text',
           borderRadius: '0',
-          fontSize: '35px',
+          fontSize: [1, 2, 3, 4],
           flexBasis: '10%',
           '&:hover': {
             color: completed ? 'lightRed' : 'softGreen',

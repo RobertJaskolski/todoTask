@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Flex, Box, Select, IconButton, Grid } from 'theme-ui';
+import { Flex, Box, Select, IconButton } from 'theme-ui';
 import {
   BsChevronDoubleLeft,
   BsChevronDoubleRight,
@@ -38,23 +38,49 @@ function PaginationTasks({ pagination }) {
     <Flex
       sx={{
         alignItems: 'center',
+        flexWrap: 'wrap',
         justifyContent: 'space-between',
         p: '20px',
         minHeight: '80px',
       }}
     >
-      <Box sx={{ fontSize: 1 }}>Łącznie: {total}</Box>
-      <Grid columns={[5]}>
-        <IconButton disabled={currentPage === 1} onClick={handleGoToFirst}>
+      <Box
+        sx={{
+          fontSize: 1,
+          flexBasis: ['100%', 'auto'],
+          textAlign: 'center',
+          mb: ['10px', '0px'],
+        }}
+      >
+        Łącznie: {total}
+      </Box>
+      <Flex sx={{ flexBasis: ['100%', 'auto'] }}>
+        <IconButton
+          sx={{
+            width: ['18%', '30px', '40px'],
+            height: '40px',
+            margin: '0px 5px',
+          }}
+          disabled={currentPage === 1}
+          onClick={handleGoToFirst}
+        >
           <BsChevronDoubleLeft />
         </IconButton>
-        <IconButton disabled={currentPage < 2} onClick={handleBackPage}>
+        <IconButton
+          sx={{
+            width: ['18%', '30px', '40px'],
+            height: '40px',
+            margin: '0px 5px',
+          }}
+          disabled={currentPage < 2}
+          onClick={handleBackPage}
+        >
           <BsChevronLeft />
         </IconButton>
         <Select
           value={currentPage}
           onChange={handleSelectPage}
-          sx={{ width: '55px' }}
+          sx={{ width: '60px' }}
         >
           {pages &&
             [...Array(pages).keys()].map((x) => (
@@ -64,14 +90,30 @@ function PaginationTasks({ pagination }) {
             ))}
         </Select>
 
-        <IconButton disabled={currentPage >= pages} onClick={handleNexPage}>
+        <IconButton
+          sx={{
+            width: ['18%', '30px', '40px'],
+            height: '40px',
+            margin: '0px 5px 0px 10px',
+          }}
+          disabled={currentPage >= pages}
+          onClick={handleNexPage}
+        >
           <BsChevronRight />
         </IconButton>
 
-        <IconButton disabled={currentPage === pages} onClick={handleGoToLast}>
+        <IconButton
+          sx={{
+            width: ['18%', '30px', '40px'],
+            height: '40px',
+            margin: '0px 5px',
+          }}
+          disabled={currentPage === pages}
+          onClick={handleGoToLast}
+        >
           <BsChevronDoubleRight />
         </IconButton>
-      </Grid>
+      </Flex>
     </Flex>
   );
 }

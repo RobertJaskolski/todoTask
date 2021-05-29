@@ -11,52 +11,55 @@ function InfoAboutTasks() {
   };
 
   return (
-    <Flex>
+    <Flex sx={{ flexWrap: 'wrap' }}>
+      <Box
+        sx={{
+          flexBasis: ['80%', null, '40%'],
+          fontSize: [3, null, 1, 2],
+          ml: '10px',
+          mb: '10px',
+          fontWeight: 'bold',
+          padding: '10px 20px',
+          backgroundColor: 'softGreen',
+          borderRadius: '5px',
+          boxShadow: '0 0 5px green',
+          opacity: !completed ? 0.9 : 0,
+        }}
+      >
+        Zakończone: {totalCompletedNum}
+      </Box>
+      <Box
+        sx={{
+          flexBasis: ['80%', null, '40%'],
+          fontSize: [3, null, 1, 2],
+          ml: '10px',
+          mb: '10px',
+          fontWeight: 'bold',
+          padding: '10px 20px',
+          backgroundColor: 'lightRed',
+          borderRadius: '5px',
+          boxShadow: '0 0 5px red',
+          opacity: !completed ? 0.9 : 0,
+        }}
+      >
+        Niezakończone: {totalUncompletedNum}
+      </Box>
       <Box
         sx={{
           fontWeight: 'bold',
           padding: '10px 20px',
           opacity: 0.9,
+          flexBasis: ['100%'],
+          mb: ['10px', null, '0px'],
         }}
       >
         <Switch
           defaultChecked={completed}
           onChange={handleToggleCompleted}
           label='Ukryj zakończone'
+          aria-label='Ukryj zakończone'
         />
       </Box>
-      {!completed && (
-        <>
-          <Box
-            sx={{
-              width: '170px',
-              ml: '20px',
-              fontWeight: 'bold',
-              padding: '10px 20px',
-              backgroundColor: 'softGreen',
-              borderRadius: '5px',
-              boxShadow: '0 0 5px green',
-              opacity: 0.9,
-            }}
-          >
-            Zakończone / {totalCompletedNum}
-          </Box>
-          <Box
-            sx={{
-              width: '190px',
-              ml: '20px',
-              fontWeight: 'bold',
-              padding: '10px 20px',
-              backgroundColor: 'lightRed',
-              borderRadius: '5px',
-              boxShadow: '0 0 5px red',
-              opacity: 0.9,
-            }}
-          >
-            Niezakończone / {totalUncompletedNum}
-          </Box>
-        </>
-      )}
     </Flex>
   );
 }

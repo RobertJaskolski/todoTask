@@ -27,7 +27,6 @@ const buttonsTheme = {
     color: 'text',
     cursor: 'pointer',
     borderColor: 'text',
-    fontSize: '20px',
     border: '1px solid',
     transition: 'all 0.2s ease-in-out',
     opacity: 0.7,

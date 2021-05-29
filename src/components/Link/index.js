@@ -4,7 +4,7 @@ import { Link as ThemeUiLink } from 'theme-ui';
 
 const Link = ({ children, to, sx = {} }) => {
   return (
-    <ThemeUiLink sx={sx} to={to} as={ReactRouterLink}>
+    <ThemeUiLink sx={{ ...sx }} to={to} as={ReactRouterLink}>
       {children}
     </ThemeUiLink>
   );
