@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Flex, Box, Select, IconButton, Grid } from 'theme-ui';
 import {
   BsChevronDoubleLeft,
@@ -6,31 +6,69 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from 'react-icons/bs';
+import { useRecoilState } from 'recoil';
+import { currentPageState } from '../../recoil/todos';
 
-function PaginationTasks() {
+function PaginationTasks({ pagination }) {
+  const { total, pages } = pagination;
+  const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
+
+  const handleNexPage = (e) => {
+    setCurrentPage((page) => page + 1);
+  };
+  const handleBackPage = (e) => {
+    setCurrentPage((page) => page - 1);
+  };
+  const handleGoToFirst = (e) => {
+    setCurrentPage(1);
+  };
+  const handleGoToLast = (e) => {
+    setCurrentPage(pages);
+  };
+  const handleSelectPage = (e) => {
+    setCurrentPage(e.target.value);
+  };
+
+  useEffect(() => {
+    if (currentPage > pages) {
+      setCurrentPage(1);
+    }
+  });
   return (
     <Flex
-      sx={{ alignItems: 'center', justifyContent: 'space-between', p: '20px' }}
+      sx={{
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        p: '20px',
+        minHeight: '80px',
+      }}
     >
-      <Box sx={{ fontSize: 1 }}>Wyniki: 1 do 20 z 1000</Box>
+      <Box sx={{ fontSize: 1 }}>Łącznie: {total}</Box>
       <Grid columns={[5]}>
-        <IconButton>
+        <IconButton disabled={currentPage === 1} onClick={handleGoToFirst}>
           <BsChevronDoubleLeft />
         </IconButton>
-        <IconButton>
+        <IconButton disabled={currentPage < 2} onClick={handleBackPage}>
           <BsChevronLeft />
         </IconButton>
-        <Select sx={{ width: '45px' }}>
-          <option value='1'>1</option>
-          <option value='2'>2</option>
-          <option value='3'> 3</option>
-          <option value='4'>4</option>
-          <option value='5'>5</option>
+        <Select
+          value={currentPage}
+          onChange={handleSelectPage}
+          sx={{ width: '55px' }}
+        >
+          {pages &&
+            [...Array(pages).keys()].map((x) => (
+              <option key={x} value={x + 1}>
+                {x + 1}
+              </option>
+            ))}
         </Select>
-        <IconButton>
+
+        <IconButton disabled={currentPage >= pages} onClick={handleNexPage}>
           <BsChevronRight />
         </IconButton>
-        <IconButton>
+
+        <IconButton disabled={currentPage === pages} onClick={handleGoToLast}>
           <BsChevronDoubleRight />
         </IconButton>
       </Grid>
