@@ -2,6 +2,7 @@ const buttonsTheme = {
   primary: {
     color: 'background',
     bg: 'highlight',
+    fontSize: [0, 2, 3],
     opacity: 0.7,
     transition: 'opacity 0.2s ease-in-out',
     textTransform: 'uppercase',
@@ -33,6 +34,11 @@ const buttonsTheme = {
     '&:hover': {
       opacity: 1,
       color: 'secondary',
+    },
+    '&:disabled': {
+      color: 'text',
+      opacity: 0.7,
+      cursor: 'default',
     },
   },
 };
