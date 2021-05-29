@@ -26,7 +26,7 @@ function PaginationTasks({ pagination }) {
     setCurrentPage(pages);
   };
   const handleSelectPage = (e) => {
-    setCurrentPage(e.target.value);
+    setCurrentPage(Number(e.target.value));
   };
 
   useEffect(() => {
