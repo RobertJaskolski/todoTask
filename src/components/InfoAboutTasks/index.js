@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Flex, Switch } from 'theme-ui';
-import { useRecoilState } from 'recoil';
-import { filterState } from '../../recoil/todos';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { filterState, tasksStats } from '../../recoil/todos';
 
 function InfoAboutTasks() {
   const [completed, setCompleted] = useRecoilState(filterState);
-
+  const { totalCompletedNum, totalUncompletedNum } = useRecoilValue(tasksStats);
   const handleToggleCompleted = (e) => {
     setCompleted(!completed);
   };
@@ -38,7 +38,7 @@ function InfoAboutTasks() {
               opacity: 0.9,
             }}
           >
-            Zakończone / 12
+            Zakończone / {totalCompletedNum}
           </Box>
           <Box
             sx={{
@@ -51,7 +51,7 @@ function InfoAboutTasks() {
               opacity: 0.9,
             }}
           >
-            Niezakończone / 12
+            Niezakończone / {totalUncompletedNum}
           </Box>
         </>
       )}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Flex, Box, Select, IconButton, Grid } from 'theme-ui';
 import {
   BsChevronDoubleLeft,
@@ -13,6 +13,7 @@ function PaginationTasks() {
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
   const { pagination } = useRecoilValue(tasksState);
   const { total, pages } = pagination;
+
   const handleNexPage = (e) => {
     setCurrentPage((page) => page + 1);
   };
@@ -28,6 +29,12 @@ function PaginationTasks() {
   const handleSelectPage = (e) => {
     setCurrentPage(e.target.value);
   };
+
+  useEffect(() => {
+    if (currentPage > pages) {
+      setCurrentPage(1);
+    }
+  });
   return (
     <Flex
       sx={{

@@ -38,3 +38,17 @@ export const tasksState = atom({
   key: 'tasksState',
   default: tasksQuery,
 });
+
+export const tasksStats = selector({
+  key: 'tasksStats',
+  get: ({ get }) => {
+    const { tasksList } = get(tasksState);
+    const totalNum = tasksList.length;
+    const totalCompletedNum = tasksList.filter((item) => item.completed).length;
+    const totalUncompletedNum = totalNum - totalCompletedNum;
+    return {
+      totalCompletedNum,
+      totalUncompletedNum,
+    };
+  },
+});

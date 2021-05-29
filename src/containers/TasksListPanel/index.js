@@ -12,7 +12,9 @@ function TasksListPanel() {
       sx={{ flexBasis: '60%', height: '100vh', pt: 50, overflow: 'auto' }}
     >
       <Box sx={{ width: '90%', margin: '0px auto' }}>
-        <InfoAboutTasks />
+        <React.Suspense fallback={<h1>Loading posts...</h1>}>
+          <InfoAboutTasks />
+        </React.Suspense>
       </Box>
       <Box
         sx={{
