@@ -29,6 +29,7 @@ function InfoAboutTasks() {
         <>
           <Box
             sx={{
+              width: '170px',
               ml: '20px',
               fontWeight: 'bold',
               padding: '10px 20px',
@@ -42,6 +43,7 @@ function InfoAboutTasks() {
           </Box>
           <Box
             sx={{
+              width: '190px',
               ml: '20px',
               fontWeight: 'bold',
               padding: '10px 20px',

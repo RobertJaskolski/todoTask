@@ -6,13 +6,12 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from 'react-icons/bs';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { currentPageState, tasksState } from '../../recoil/todos';
+import { useRecoilState } from 'recoil';
+import { currentPageState } from '../../recoil/todos';
 
-function PaginationTasks() {
-  const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
-  const { pagination } = useRecoilValue(tasksState);
+function PaginationTasks({ pagination }) {
   const { total, pages } = pagination;
+  const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
 
   const handleNexPage = (e) => {
     setCurrentPage((page) => page + 1);
@@ -57,16 +56,18 @@ function PaginationTasks() {
           onChange={handleSelectPage}
           sx={{ width: '55px' }}
         >
-          {10 &&
+          {pages &&
             [...Array(pages).keys()].map((x) => (
               <option key={x} value={x + 1}>
                 {x + 1}
               </option>
             ))}
         </Select>
+
         <IconButton disabled={currentPage >= pages} onClick={handleNexPage}>
           <BsChevronRight />
         </IconButton>
+
         <IconButton disabled={currentPage === pages} onClick={handleGoToLast}>
           <BsChevronDoubleRight />
         </IconButton>

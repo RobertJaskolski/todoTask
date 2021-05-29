@@ -3,8 +3,11 @@ import { Box } from 'theme-ui';
 import InfoAboutTasks from '../../components/InfoAboutTasks';
 import TasksList from '../../components/TasksList';
 import PaginationTasks from '../../components/PaginationTasks';
+import { useRecoilValue } from 'recoil';
+import { tasksState } from '../../recoil/todos';
 
 function TasksListPanel() {
+  const { tasksList, pagination } = useRecoilValue(tasksState);
   return (
     <Box
       as='section'
@@ -12,9 +15,7 @@ function TasksListPanel() {
       sx={{ flexBasis: '60%', height: '100vh', pt: 50, overflow: 'auto' }}
     >
       <Box sx={{ width: '90%', margin: '0px auto' }}>
-        <React.Suspense fallback={<h1>Loading posts...</h1>}>
-          <InfoAboutTasks />
-        </React.Suspense>
+        <InfoAboutTasks />
       </Box>
       <Box
         sx={{
@@ -24,13 +25,11 @@ function TasksListPanel() {
           borderRadius: '5px',
         }}
       >
-        <React.Suspense fallback={<h1>Loading posts...</h1>}>
-          <PaginationTasks />
-        </React.Suspense>
+        <PaginationTasks pagination={pagination} />
       </Box>
-      <React.Suspense fallback={<h1>Loading posts...</h1>}>
-        <TasksList />
-      </React.Suspense>
+
+      <TasksList tasksList={tasksList} />
+
       <Box
         sx={{
           width: '90%',
@@ -39,9 +38,7 @@ function TasksListPanel() {
           borderRadius: '5px',
         }}
       >
-        <React.Suspense fallback={<h1>Loading posts...</h1>}>
-          <PaginationTasks />
-        </React.Suspense>
+        <PaginationTasks pagination={pagination} />
       </Box>
     </Box>
   );
