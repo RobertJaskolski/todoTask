@@ -1,9 +1,8 @@
 import React from 'react';
-import { Box, Grid } from 'theme-ui';
-import { data } from '../data';
-import TaskListItem from '../../components/TaskListItem';
-import PaginationTasks from '../../components/PaginationTasks';
+import { Box } from 'theme-ui';
 import InfoAboutTasks from '../../components/InfoAboutTasks';
+import TasksList from '../../components/TasksList';
+import PaginationTasks from '../../components/PaginationTasks';
 
 function TasksListPanel() {
   return (
@@ -23,13 +22,13 @@ function TasksListPanel() {
           borderRadius: '5px',
         }}
       >
-        <PaginationTasks />
+        <React.Suspense fallback={<h1>Loading posts...</h1>}>
+          <PaginationTasks />
+        </React.Suspense>
       </Box>
-      <Grid columns={[1]} sx={{ width: '90%', margin: '20px auto' }}>
-        {Array.isArray(data) &&
-          data.length > 0 &&
-          data.map((todo) => <TaskListItem {...todo} key={todo.id} />)}
-      </Grid>
+      <React.Suspense fallback={<h1>Loading posts...</h1>}>
+        <TasksList />
+      </React.Suspense>
       <Box
         sx={{
           width: '90%',
@@ -38,7 +37,9 @@ function TasksListPanel() {
           borderRadius: '5px',
         }}
       >
-        <PaginationTasks />
+        <React.Suspense fallback={<h1>Loading posts...</h1>}>
+          <PaginationTasks />
+        </React.Suspense>
       </Box>
     </Box>
   );
