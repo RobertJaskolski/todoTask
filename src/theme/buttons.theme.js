@@ -41,6 +41,11 @@ const buttonsTheme = {
       cursor: 'default',
     },
   },
+  close: {
+    cursor: 'pointer',
+    margin: '5px',
+    border: '1px solid',
+  },
 };
 
 export default buttonsTheme;
