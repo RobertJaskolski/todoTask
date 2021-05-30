@@ -1,18 +1,32 @@
 import React from 'react';
 import { Heading, Textarea, Flex, Button, Box } from 'theme-ui';
 import { addTodo } from '../../api/todos';
-import { useRecoilState } from 'recoil';
-import { newTaskTextState } from '../../recoil/todo';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { newTaskTextState, counterCharsQuery } from '../../recoil/todo';
 import { useToasts } from 'react-toast-notifications';
 
 function NewTaskPanel() {
   const [newTask, setNewTask] = useRecoilState(newTaskTextState);
+  const counterChars = useRecoilValue(counterCharsQuery);
   const { addToast } = useToasts();
   const handleOnChangeText = (e) => {
     setNewTask(e.target.value);
   };
   const handlePostNewTask = (e) => {
-    if (!newTask) return;
+    if (!newTask) {
+      addToast('Dodaj treść zadania', {
+        appearance: 'info',
+        autoDismiss: true,
+      });
+      return;
+    }
+    if (newTask.length > 320) {
+      addToast('Treść jest za duża', {
+        appearance: 'info',
+        autoDismiss: true,
+      });
+      return;
+    }
 
     addTodo({
       data: {
@@ -23,7 +37,6 @@ function NewTaskPanel() {
       },
     })
       .then((res) => {
-        console.log(res.code);
         if (res.code !== 201 && res.code !== 200) {
           addToast('Nie udało się stworzyć zadania!', {
             appearance: 'error',
@@ -66,13 +79,15 @@ function NewTaskPanel() {
         value={newTask}
         onChange={handleOnChangeText}
       />
+
       <Flex
         sx={{
-          justifyContent: 'flex-end',
+          justifyContent: 'space-between',
           width: '80%',
           margin: '0px auto',
         }}
       >
+        <Box sx={{ color: 'forms' }}>{counterChars}</Box>
         <Button
           aria-label='Dodaj zadanie'
           variant='secondary'

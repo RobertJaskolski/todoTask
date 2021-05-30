@@ -11,7 +11,7 @@ function App() {
   return (
     <RecoilRoot>
       <Router>
-        <ToastProvider>
+        <ToastProvider placement='bottom-center'>
           <ThemeProvider theme={theme}>
             <div className='App'>
               <Header />
