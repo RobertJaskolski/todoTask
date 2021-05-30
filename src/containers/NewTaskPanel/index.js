@@ -3,9 +3,11 @@ import { Heading, Textarea, Flex, Button, Box } from 'theme-ui';
 import { addTodo } from '../../api/todos';
 import { useRecoilState } from 'recoil';
 import { newTaskTextState } from '../../recoil/todo';
+import { useToasts } from 'react-toast-notifications';
 
 function NewTaskPanel() {
   const [newTask, setNewTask] = useRecoilState(newTaskTextState);
+  const { addToast } = useToasts();
   const handleOnChangeText = (e) => {
     setNewTask(e.target.value);
   };
@@ -19,7 +21,29 @@ function NewTaskPanel() {
         created_at: new Date(),
         updated_at: new Date(),
       },
-    });
+    })
+      .then((res) => {
+        console.log(res.code);
+        if (res.code !== 201 && res.code !== 200) {
+          addToast('Nie udało się stworzyć zadania!', {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        } else {
+          addToast('Stworzono zadanie!', {
+            appearance: 'success',
+            autoDismiss: true,
+          });
+        }
+        setNewTask('');
+      })
+      .catch(() => {
+        addToast('Nie udało się stworzyć zadania!', {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+        setNewTask('');
+      });
   };
 
   return (
