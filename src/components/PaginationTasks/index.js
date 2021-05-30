@@ -56,6 +56,7 @@ function PaginationTasks({ pagination }) {
       </Box>
       <Flex sx={{ flexBasis: ['100%', 'auto'] }}>
         <IconButton
+          aria-label='Idź do pierwszej strony'
           sx={{
             width: ['18%', '30px', '40px'],
             height: '40px',
@@ -67,6 +68,7 @@ function PaginationTasks({ pagination }) {
           <BsChevronDoubleLeft />
         </IconButton>
         <IconButton
+          aria-label='Cofnij stornę'
           sx={{
             width: ['18%', '30px', '40px'],
             height: '40px',
@@ -78,6 +80,7 @@ function PaginationTasks({ pagination }) {
           <BsChevronLeft />
         </IconButton>
         <Select
+          aria-label='zmień stronę'
           value={currentPage}
           onChange={handleSelectPage}
           sx={{ width: '60px' }}
@@ -91,6 +94,7 @@ function PaginationTasks({ pagination }) {
         </Select>
 
         <IconButton
+          aria-label='Następna strona'
           sx={{
             width: ['18%', '30px', '40px'],
             height: '40px',
@@ -103,6 +107,7 @@ function PaginationTasks({ pagination }) {
         </IconButton>
 
         <IconButton
+          aria-label='Idź do ostatniej strony'
           sx={{
             width: ['18%', '30px', '40px'],
             height: '40px',
