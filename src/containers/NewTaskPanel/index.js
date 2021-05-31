@@ -1,12 +1,14 @@
 import React from 'react';
 import { Heading, Textarea, Flex, Button, Box } from 'theme-ui';
 import { addTodo } from '../../api/todos';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { newTaskTextState, counterCharsQuery } from '../../recoil/todo';
+import { userState } from '../../recoil/user';
 import { useToasts } from 'react-toast-notifications';
 
 function NewTaskPanel() {
   const [newTask, setNewTask] = useRecoilState(newTaskTextState);
+  const user = useRecoilValueLoadable(userState);
   const counterChars = useRecoilValue(counterCharsQuery);
   const { addToast } = useToasts();
   const handleOnChangeText = (e) => {
@@ -27,38 +29,38 @@ function NewTaskPanel() {
       });
       return;
     }
-
-    addTodo({
-      data: {
-        title: newTask,
-        completed: false,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-    })
-      .then((res) => {
-        if (res.code !== 201 && res.code !== 200) {
+    if (user?.contents[0])
+      addTodo({
+        data: {
+          title: newTask,
+          completed: false,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        user_id: user.contents[0].id,
+      })
+        .then((res) => {
+          if (res.code !== 201 && res.code !== 200) {
+            addToast('Nie udało się stworzyć zadania!', {
+              appearance: 'error',
+              autoDismiss: true,
+            });
+          } else {
+            addToast('Stworzono zadanie!', {
+              appearance: 'success',
+              autoDismiss: true,
+            });
+          }
+          setNewTask('');
+        })
+        .catch(() => {
           addToast('Nie udało się stworzyć zadania!', {
             appearance: 'error',
             autoDismiss: true,
           });
-        } else {
-          addToast('Stworzono zadanie!', {
-            appearance: 'success',
-            autoDismiss: true,
-          });
-        }
-        setNewTask('');
-      })
-      .catch(() => {
-        addToast('Nie udało się stworzyć zadania!', {
-          appearance: 'error',
-          autoDismiss: true,
+          setNewTask('');
         });
-        setNewTask('');
-      });
   };
-
   return (
     <Box
       as='section'

@@ -3,14 +3,16 @@ import { Flex } from 'theme-ui';
 import NewTaskPanel from '../NewTaskPanel';
 import TasksListPanel from '../TasksListPanel';
 import SkeletonTasksListPanel from '../../components/SkeletonTasksListPanel';
-
+import ErrorBoundaryForList from '../../components/ErrorBoundaryForList';
 function Home() {
   return (
     <Flex sx={{ flexWrap: 'wrap' }}>
       <NewTaskPanel />
-      <React.Suspense fallback={<SkeletonTasksListPanel />}>
-        <TasksListPanel />
-      </React.Suspense>
+      <ErrorBoundaryForList>
+        <React.Suspense fallback={<SkeletonTasksListPanel />}>
+          <TasksListPanel />
+        </React.Suspense>
+      </ErrorBoundaryForList>
     </Flex>
   );
 }

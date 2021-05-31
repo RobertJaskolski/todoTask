@@ -7,7 +7,7 @@ import {
   BsChevronRight,
 } from 'react-icons/bs';
 
-function SkeletonTasksListPanel() {
+function SkeletonTasksListPanel({ isError }) {
   return (
     <Box
       as='section'
@@ -150,7 +150,13 @@ function SkeletonTasksListPanel() {
       </Box>
       {/* SPINNER SECTION */}
       <Flex sx={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Spinner sx={{ width: '80%', height: '80%' }} />
+        {isError ? (
+          <Box sx={{ width: '80%', height: '50vh', textAlign: 'center' }}>
+            <h1>Wystąpił problem z siecią</h1>
+          </Box>
+        ) : (
+          <Spinner sx={{ width: '80%', height: '80%' }} />
+        )}
       </Flex>
       {/* PADDING SECTION */}
       <Box
