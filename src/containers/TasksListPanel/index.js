@@ -8,6 +8,7 @@ import { tasksState } from '../../recoil/todos';
 
 function TasksListPanel() {
   const { tasksList, pagination } = useRecoilValue(tasksState);
+
   return (
     <Box
       as='section'

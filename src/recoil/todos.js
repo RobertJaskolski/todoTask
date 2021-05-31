@@ -1,4 +1,5 @@
 import { atom, selector } from 'recoil';
+import { forceReloadState } from './todo';
 import { getTodos } from '../api/todos';
 
 export const currentPageState = atom({
@@ -14,6 +15,7 @@ export const filterState = atom({
 export const tasksQuery = selector({
   key: 'tasksQuery',
   get: async ({ get }) => {
+    get(forceReloadState);
     let response;
     if (get(filterState)) {
       response = await getTodos({

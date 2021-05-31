@@ -22,6 +22,17 @@ const buttonsTheme = {
       cursor: 'pointer',
     },
   },
+  deleted: {
+    color: 'background',
+    bg: '#ff9999',
+    opacity: 0.7,
+    transition: 'opacity 0.2s ease-in-out',
+    textTransform: 'uppercase',
+    '&:hover': {
+      opacity: 0.9,
+      cursor: 'pointer',
+    },
+  },
   icon: {
     width: '100%',
     height: '100%',

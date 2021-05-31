@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Flex, Box, Switch, useColorMode, Button } from 'theme-ui';
-import ModalUser from '../Modal';
+import WithModal from '../../hoc/WithModal';
+import UserForm from '../UserForm';
+
+const UserFormModal = WithModal(UserForm);
 
 function Header() {
   const [colorMode, setColorMode] = useColorMode();
@@ -38,7 +41,7 @@ function Header() {
           <Switch onChange={handleChangeColor} />
         </Box>
       </Flex>
-      <ModalUser onClose={handleToggleModal} isOpen={showModal} />
+      <UserFormModal onClose={handleToggleModal} isOpen={showModal} />
     </Box>
   );
 }

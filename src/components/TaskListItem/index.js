@@ -2,8 +2,23 @@ import React from 'react';
 import { Card, IconButton, Box } from 'theme-ui';
 import Link from '../Link';
 import { FiTrash2, FiCheck } from 'react-icons/fi';
-
+import { deleteTodo, updateTodo } from '../../api/todos';
+import { forceReloadState } from '../../recoil/todo';
+import { useSetRecoilState } from 'recoil';
+import { useHistory } from 'react-router-dom';
 function TaskListItem({ title, id, completed }) {
+  const setForceReloadState = useSetRecoilState(forceReloadState);
+  const history = useHistory();
+
+  const handleUpdateTask = async (e) => {
+    await updateTodo({ task: { id }, newTaskInfo: { completed: true } });
+    setForceReloadState((x) => x + 1);
+  };
+
+  const handleDeleteTask = (e) => {
+    deleteTodo({ task: { id } });
+    setForceReloadState((x) => x + 1);
+  };
   return (
     <Card variant={completed ? 'completed' : 'uncompleted'}>
       <Link
@@ -33,7 +48,11 @@ function TaskListItem({ title, id, completed }) {
           },
         }}
       >
-        {completed ? <FiTrash2 /> : <FiCheck />}
+        {completed ? (
+          <FiTrash2 onClick={handleDeleteTask} />
+        ) : (
+          <FiCheck onClick={handleUpdateTask} />
+        )}
       </IconButton>
     </Card>
   );

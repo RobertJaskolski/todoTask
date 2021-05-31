@@ -4,6 +4,7 @@ import NewTaskPanel from '../NewTaskPanel';
 import TasksListPanel from '../TasksListPanel';
 import SkeletonTasksListPanel from '../../components/SkeletonTasksListPanel';
 import ErrorBoundaryForList from '../../components/ErrorBoundaryForList';
+
 function Home() {
   return (
     <Flex sx={{ flexWrap: 'wrap' }}>

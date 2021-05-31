@@ -6,7 +6,8 @@ import Header from './components/Header';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { ToastProvider } from 'react-toast-notifications';
-
+import TaskDetails from './containers/TaskDetails';
+import SkeletonTaskDetails from './components/SkeletonTaskDetails';
 function App() {
   return (
     <RecoilRoot>
@@ -17,7 +18,9 @@ function App() {
               <Header />
               <Switch>
                 <Route path='/todo/:id'>
-                  <h1>Jakieś todo</h1>
+                  <React.Suspense fallback={<SkeletonTaskDetails />}>
+                    <TaskDetails />
+                  </React.Suspense>
                 </Route>
                 <Route path='/'>
                   <Home />
