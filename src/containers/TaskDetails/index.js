@@ -1,14 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Flex, Box, Heading, Button } from 'theme-ui';
-import { useParams } from 'react-router-dom';
-import { useSetRecoilState, useRecoilValueLoadable } from 'recoil';
+import { useParams, useHistory } from 'react-router-dom';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { currentTaskIDState, taskState } from '../../recoil/todo';
 import { handleDateToString } from '../../utils';
+import WithModal from '../../hoc/WithModal';
+import TaskForm from '../../components/TaskForm';
+import { deleteTodo } from '../../api/todos';
+import { forceReloadState } from '../../recoil/todo';
+
+const TaskFormModal = WithModal(TaskForm);
 
 function TaskDetails() {
+  const setForceReloadState = useSetRecoilState(forceReloadState);
   const { id } = useParams();
+  const history = useHistory();
   const setCurrentTaskID = useSetRecoilState(currentTaskIDState);
-  const task = useRecoilValueLoadable(taskState);
+  const task = useRecoilValue(taskState);
+  const [showModal, setShowModal] = useState(false);
+  const handleGoBack = (e) => {
+    history.goBack();
+  };
+  const handleToggleModal = () => {
+    setShowModal(!showModal);
+  };
+  const handleDeleteTask = (e) => {
+    deleteTodo({ task });
+    setForceReloadState((x) => x + 1);
+    history.push('/');
+  };
   useEffect(() => {
     setCurrentTaskID(id);
   });
@@ -18,7 +38,7 @@ function TaskDetails() {
       sx={{
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: '80vh',
+        minHeight: '90vh',
       }}
     >
       <Box
@@ -40,7 +60,7 @@ function TaskDetails() {
           }}
           as='h2'
         >
-          <b>Tytuł:</b> {task?.contents?.task?.title}
+          <b>Tytuł:</b> {task?.title}
         </Heading>
         <Heading
           sx={{
@@ -51,30 +71,43 @@ function TaskDetails() {
           }}
           as='h2'
         >
-          <b>Zakończone:</b> {task?.contents?.task?.completed ? 'Tak' : 'Nie'}
+          <b>Zakończone:</b> {task?.completed ? 'Tak' : 'Nie'}
         </Heading>
         <Flex sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <Box>
             <b>Utworzono: </b>
-            {handleDateToString(task?.contents?.task?.created_at)}
+            {handleDateToString(task?.created_at)}
           </Box>
           <Box>
             <b>Aktualizacja: </b>
-            {handleDateToString(task?.contents?.task?.updated_at)}
+            {handleDateToString(task?.updated_at)}
           </Box>
         </Flex>
         <Flex
           sx={{ justifyContent: 'space-between', flexWrap: 'wrap', mt: '15px' }}
         >
-          <Button sx={{ mb: '15px' }}>Powrót</Button>
+          <Button onClick={handleGoBack} sx={{ mb: '15px' }}>
+            Powrót
+          </Button>
           <Box>
-            <Button variant='deleted' sx={{ mr: '15px' }}>
+            <Button
+              variant='deleted'
+              sx={{ mr: '15px' }}
+              onClick={handleDeleteTask}
+            >
               Usuń
             </Button>
-            <Button variant='secondary'>Edytuj</Button>
+            <Button variant='secondary' onClick={handleToggleModal}>
+              Edytuj
+            </Button>
           </Box>
         </Flex>
       </Box>
+      <TaskFormModal
+        task={task}
+        isOpen={showModal}
+        onClose={handleToggleModal}
+      />
     </Flex>
   );
 }

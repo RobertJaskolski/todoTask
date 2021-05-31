@@ -5,7 +5,7 @@ export const getTodo = ({ id = 1 }) =>
   client({
     endpoint: `/todos/${id}`,
   }).then((res) => {
-    return { task: res.data };
+    return res.data;
   });
 
 // GET ALL TODOS
@@ -30,5 +30,26 @@ export const addTodo = ({ data, user_id = 30 }) =>
   });
 
 // PATCH
+export const updateTodo = ({ task = {}, newTaskInfo }) =>
+  client({
+    endpoint: `/todos/${task.id}`,
+    options: {
+      method: 'PATCH',
+      body: JSON.stringify(newTaskInfo),
+    },
+  }).then((res) => {
+    if (res.code === 204 || res.code === 200) return res.data;
+    else return task;
+  });
 
 // DELETE
+export const deleteTodo = ({ task = {} }) =>
+  client({
+    endpoint: `/todos/${task.id}`,
+    options: {
+      method: 'DELETE',
+    },
+  }).then((res) => {
+    if (res.code === 204 || res.code === 200) return res.data;
+    else return task;
+  });
