@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Switch, Spinner, Grid, Select, IconButton } from 'theme-ui';
+import { Box, Flex, Switch, Spinner, Select, IconButton } from 'theme-ui';
 import {
   BsChevronDoubleLeft,
   BsChevronDoubleRight,
@@ -7,7 +7,7 @@ import {
   BsChevronRight,
 } from 'react-icons/bs';
 
-function SkeletonTasksListPanel() {
+function SkeletonTasksListPanel({ isError }) {
   return (
     <Box
       as='section'
@@ -92,6 +92,7 @@ function SkeletonTasksListPanel() {
           </Box>
           <Flex sx={{ flexBasis: ['100%', 'auto'] }}>
             <IconButton
+              aria-label='Idź do pierwszej strony'
               sx={{
                 width: ['18%', '30px', '40px'],
                 height: '40px',
@@ -102,6 +103,7 @@ function SkeletonTasksListPanel() {
               <BsChevronDoubleLeft />
             </IconButton>
             <IconButton
+              aria-label='Cofnij stronę'
               sx={{
                 width: ['18%', '30px', '40px'],
                 height: '40px',
@@ -111,7 +113,7 @@ function SkeletonTasksListPanel() {
             >
               <BsChevronLeft />
             </IconButton>
-            <Select sx={{ width: '60px' }}>
+            <Select aria-label='Wybierz stronę' sx={{ width: '60px' }}>
               {10 &&
                 [...Array(10).keys()].map((x) => (
                   <option key={x} value={x + 1}>
@@ -121,6 +123,7 @@ function SkeletonTasksListPanel() {
             </Select>
 
             <IconButton
+              aria-label='Następna strona'
               sx={{
                 width: ['18%', '30px', '40px'],
                 height: '40px',
@@ -132,6 +135,7 @@ function SkeletonTasksListPanel() {
             </IconButton>
 
             <IconButton
+              aria-label='Idź do ostatniej strony'
               sx={{
                 width: ['18%', '30px', '40px'],
                 height: '40px',
@@ -146,7 +150,13 @@ function SkeletonTasksListPanel() {
       </Box>
       {/* SPINNER SECTION */}
       <Flex sx={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Spinner sx={{ width: '80%', height: '80%' }} />
+        {isError ? (
+          <Box sx={{ width: '80%', height: '50vh', textAlign: 'center' }}>
+            <h1>Wystąpił problem z siecią</h1>
+          </Box>
+        ) : (
+          <Spinner sx={{ width: '80%', height: '80%' }} />
+        )}
       </Flex>
       {/* PADDING SECTION */}
       <Box
@@ -178,6 +188,7 @@ function SkeletonTasksListPanel() {
           </Box>
           <Flex sx={{ flexBasis: ['100%', 'auto'] }}>
             <IconButton
+              aria-label='Idź do pierwszej strony'
               sx={{
                 width: ['18%', '30px', '40px'],
                 height: '40px',
@@ -188,6 +199,7 @@ function SkeletonTasksListPanel() {
               <BsChevronDoubleLeft />
             </IconButton>
             <IconButton
+              aria-label='Cofnij stronę'
               sx={{
                 width: ['18%', '30px', '40px'],
                 height: '40px',
@@ -197,7 +209,7 @@ function SkeletonTasksListPanel() {
             >
               <BsChevronLeft />
             </IconButton>
-            <Select sx={{ width: '60px' }}>
+            <Select aria-label='Wybierz stronę' sx={{ width: '60px' }}>
               {10 &&
                 [...Array(10).keys()].map((x) => (
                   <option key={x} value={x + 1}>
@@ -207,6 +219,7 @@ function SkeletonTasksListPanel() {
             </Select>
 
             <IconButton
+              aria-label='Następna strona'
               sx={{
                 width: ['18%', '30px', '40px'],
                 height: '40px',
@@ -218,6 +231,7 @@ function SkeletonTasksListPanel() {
             </IconButton>
 
             <IconButton
+              aria-label='Idź do ostatniej strony'
               sx={{
                 width: ['18%', '30px', '40px'],
                 height: '40px',

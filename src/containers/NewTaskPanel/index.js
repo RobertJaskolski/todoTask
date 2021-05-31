@@ -1,7 +1,66 @@
 import React from 'react';
 import { Heading, Textarea, Flex, Button, Box } from 'theme-ui';
+import { addTodo } from '../../api/todos';
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { newTaskTextState, counterCharsQuery } from '../../recoil/todo';
+import { userState } from '../../recoil/user';
+import { useToasts } from 'react-toast-notifications';
 
 function NewTaskPanel() {
+  const [newTask, setNewTask] = useRecoilState(newTaskTextState);
+  const user = useRecoilValueLoadable(userState);
+  const counterChars = useRecoilValue(counterCharsQuery);
+  const { addToast } = useToasts();
+  const handleOnChangeText = (e) => {
+    setNewTask(e.target.value);
+  };
+  const handlePostNewTask = (e) => {
+    if (!newTask) {
+      addToast('Dodaj treść zadania', {
+        appearance: 'info',
+        autoDismiss: true,
+      });
+      return;
+    }
+    if (newTask.length > 320) {
+      addToast('Treść jest za duża', {
+        appearance: 'info',
+        autoDismiss: true,
+      });
+      return;
+    }
+    if (user?.contents[0])
+      addTodo({
+        data: {
+          title: newTask,
+          completed: false,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        user_id: user.contents[0].id,
+      })
+        .then((res) => {
+          if (res.code !== 201 && res.code !== 200) {
+            addToast('Nie udało się stworzyć zadania!', {
+              appearance: 'error',
+              autoDismiss: true,
+            });
+          } else {
+            addToast('Stworzono zadanie!', {
+              appearance: 'success',
+              autoDismiss: true,
+            });
+          }
+          setNewTask('');
+        })
+        .catch(() => {
+          addToast('Nie udało się stworzyć zadania!', {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+          setNewTask('');
+        });
+  };
   return (
     <Box
       as='section'
@@ -16,15 +75,26 @@ function NewTaskPanel() {
       <Heading as='h1' sx={{ color: 'forms' }}>
         Nowe zadanie
       </Heading>
-      <Textarea placeholder='Wpisz swoje zadanie' rows={20} />
+      <Textarea
+        placeholder='Wpisz swoje zadanie'
+        rows={20}
+        value={newTask}
+        onChange={handleOnChangeText}
+      />
+
       <Flex
         sx={{
-          justifyContent: 'flex-end',
+          justifyContent: 'space-between',
           width: '80%',
           margin: '0px auto',
         }}
       >
-        <Button aria-label='Dodaj zadanie' variant='secondary'>
+        <Box sx={{ color: 'forms' }}>{counterChars}</Box>
+        <Button
+          aria-label='Dodaj zadanie'
+          variant='secondary'
+          onClick={handlePostNewTask}
+        >
           Dodaj zadanie
         </Button>
       </Flex>

@@ -1,7 +1,7 @@
 import { client } from './index';
 
 // GET ALL TODOS
-export const getTodos = async ({ page = 1, q = '' }) =>
+export const getTodos = ({ page = 1, q = '' }) =>
   client({
     endpoint: '/todos',
     query: `?page=${page}${q}`,
@@ -10,6 +10,16 @@ export const getTodos = async ({ page = 1, q = '' }) =>
   });
 
 // POST
+export const addTodo = ({ data, user_id = 30 }) =>
+  client({
+    endpoint: `/users/${user_id}/todos`,
+    options: {
+      method: 'POST',
+      body: JSON.stringify(data),
+    },
+  }).then((res) => {
+    return res;
+  });
 
 // PATCH
 
