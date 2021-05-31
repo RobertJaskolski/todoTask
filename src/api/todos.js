@@ -1,5 +1,13 @@
 import { client } from './index';
 
+// GET TODO
+export const getTodo = ({ id = 1 }) =>
+  client({
+    endpoint: `/todos/${id}`,
+  }).then((res) => {
+    return { task: res.data };
+  });
+
 // GET ALL TODOS
 export const getTodos = ({ page = 1, q = '' }) =>
   client({
@@ -22,7 +30,5 @@ export const addTodo = ({ data, user_id = 30 }) =>
   });
 
 // PATCH
-
-// PUT
 
 // DELETE
