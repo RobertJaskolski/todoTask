@@ -33,7 +33,7 @@ function UserForm({ onClose, user, setNewUser }) {
         <Input
           {...register('name', { required: true })}
           placeholder='Wpisz nazwę...'
-          defaultValue={user.state === 'hasValue' && user.contents.name}
+          defaultValue={(user.state === 'hasValue' && user.contents.name) || ''}
         />
       </Label>
       <Label>
@@ -42,7 +42,9 @@ function UserForm({ onClose, user, setNewUser }) {
           {...register('email', { required: true })}
           type='email'
           placeholder='Wpisz email...'
-          defaultValue={user.state === 'hasValue' && user.contents.email}
+          defaultValue={
+            (user.state === 'hasValue' && user.contents.email) || ''
+          }
         />
       </Label>
       <Label sx={{ justifyContent: 'flex-start' }}>

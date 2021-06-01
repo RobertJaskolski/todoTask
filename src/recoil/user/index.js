@@ -1,4 +1,4 @@
-import { atomFamily, selectorFamily, atom, selector } from 'recoil';
+import { selectorFamily, atom, selector } from 'recoil';
 import { handleCheckUser, localStorageEffect } from '../../utils';
 import { getUser } from '../../api/user';
 import { DEFAULT_USER } from '../../consts';

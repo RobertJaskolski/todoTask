@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Flex, Box, Heading, Button } from 'theme-ui';
 import { useParams, useHistory } from 'react-router-dom';
 import { handleDateToString } from '../../utils';
@@ -14,11 +14,13 @@ import WithModal from '../../hoc/WithModal';
 import { useRecoilValue } from 'recoil';
 import { todoResponseState } from '../../recoil/todo';
 import { getUserQuery } from '../../recoil/user';
-
+import { useRefreshReques } from '../../hook/useRefreshReques';
+import { requestIDtodos } from '../../recoil/todo';
 // Modal
 const TaskFormModal = WithModal(TaskForm);
 
 function TaskDetails() {
+  const forceRefreshTodos = useRefreshReques(requestIDtodos);
   const { id } = useParams();
   const history = useHistory();
   const [showModal, setShowModal] = useState(false);
@@ -35,6 +37,7 @@ function TaskDetails() {
   };
   const handleDeleteTask = (e) => {
     deleteTodo({ todo });
+    forceRefreshTodos();
     history.push('/');
   };
 

@@ -7,7 +7,6 @@ import {
   Checkbox,
   Label,
   Button,
-  Box,
 } from 'theme-ui';
 import { useForm } from 'react-hook-form';
 import { updateTodo } from '../../api/todos';
@@ -38,14 +37,13 @@ function TaskForm({ onClose, todo }) {
       <Flex sx={{ justifyContent: 'flex-end' }}>
         <Close aria-label='Zamknij modal' type='button' onClick={onClose} />
       </Flex>
-      <Heading>Treść zadania</Heading>
+      <Heading as='h3'>Treść zadania</Heading>
       <Textarea
-        {...register('title', { required: true })}
+        {...register('title', { required: true, minLength: 1, maxLength: 200 })}
         placeholder='Wpisz nową treść'
         rows={10}
         defaultValue={title}
       />
-      <Box sx={{ width: '80%', margin: '0px auto' }}>0/600</Box>
       <Flex sx={{ justifyContent: 'center' }}>
         <Label sx={{ justifyContent: 'center' }}>
           Ukończone

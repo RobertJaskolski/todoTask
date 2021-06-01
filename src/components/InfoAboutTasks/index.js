@@ -6,6 +6,8 @@ function InfoAboutTasks({
   totalCompleted,
   totalUncompleted,
   handleToggleCompleted,
+  my,
+  handleToggleMy,
 }) {
   return (
     <Flex sx={{ flexWrap: 'wrap' }}>
@@ -44,10 +46,9 @@ function InfoAboutTasks({
       <Box
         sx={{
           fontWeight: 'bold',
-          padding: '10px 20px',
+          padding: '0px 20px',
           opacity: 0.9,
           flexBasis: ['100%'],
-          mb: ['10px', null, '0px'],
         }}
       >
         <Switch
@@ -55,6 +56,22 @@ function InfoAboutTasks({
           onChange={handleToggleCompleted}
           label='Ukryj zakończone'
           aria-label='Ukryj zakończone'
+        />
+      </Box>
+      <Box
+        sx={{
+          fontWeight: 'bold',
+          padding: '0px 20px',
+          opacity: 0.9,
+          flexBasis: ['100%'],
+          mb: ['10px', null, '0px'],
+        }}
+      >
+        <Switch
+          defaultChecked={my}
+          onChange={handleToggleMy}
+          label='Pokaż moje'
+          aria-label='Pokaż moje'
         />
       </Box>
     </Flex>

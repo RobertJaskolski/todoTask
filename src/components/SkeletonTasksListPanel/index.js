@@ -52,13 +52,24 @@ function SkeletonTasksListPanel({ isError }) {
           <Box
             sx={{
               fontWeight: 'bold',
-              padding: '10px 20px',
+              padding: '0px 20px',
               opacity: 0.9,
               flexBasis: ['100%'],
               mb: ['10px', null, '0px'],
             }}
           >
-            <Switch label='Ukryj zakończone' />
+            <Switch label='Ukryj zakończone' aria-label='Ukryj zakończone' />
+          </Box>
+          <Box
+            sx={{
+              fontWeight: 'bold',
+              padding: '0px 20px',
+              opacity: 0.9,
+              flexBasis: ['100%'],
+              mb: ['10px', null, '0px'],
+            }}
+          >
+            <Switch label='Pokaż moje ' aria-label='Pokaż moje' />
           </Box>
         </Flex>
       </Box>

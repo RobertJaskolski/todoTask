@@ -1,15 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Heading, Textarea, Flex, Button, Box } from 'theme-ui';
 import { useToasts } from 'react-toast-notifications';
 import { addTodo } from '../../api/todos';
 
 // Recoil
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { newTodoTextState, newTodoTextLengthQuery } from '../../recoil/todo';
+import {
+  newTodoTextState,
+  newTodoTextLengthQuery,
+  requestIDtodos,
+} from '../../recoil/todo';
+import { useRefreshReques } from '../../hook/useRefreshReques';
 
-function NewTaskPanel() {
+function NewTaskPanel({ user }) {
+  const foreceRefreshTodos = useRefreshReques(requestIDtodos);
   const [newTodoText, setNewTodoText] = useRecoilState(newTodoTextState);
-  const user = { contents: { id: 344 } };
   const todoTextLenght = useRecoilValue(newTodoTextLengthQuery);
   const { addToast } = useToasts();
 
@@ -25,20 +30,20 @@ function NewTaskPanel() {
       });
       return;
     }
-    if (newTodoText?.length > 320) {
+    if (newTodoText?.length > 200) {
       addToast('Treść jest za duża', {
         appearance: 'info',
         autoDismiss: true,
       });
       return;
     }
-    if (user?.contents[0])
+    if (user?.contents)
       addTodo({
         data: {
           title: newTodoText,
           completed: false,
         },
-        user_id: user.contents[0].id,
+        user_id: user.contents.id,
       })
         .then((res) => {
           if (res.code !== 201 && res.code !== 200) {
@@ -51,6 +56,7 @@ function NewTaskPanel() {
               appearance: 'success',
               autoDismiss: true,
             });
+            foreceRefreshTodos();
           }
           setNewTodoText('');
         })
@@ -62,8 +68,6 @@ function NewTaskPanel() {
           setNewTodoText('');
         });
   };
-
-  //useEffect(() => {});
 
   return (
     <Box

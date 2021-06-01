@@ -1,5 +1,6 @@
 import { atom, selector, selectorFamily, atomFamily } from 'recoil';
 import { getTodos, getTodo } from '../../api/todos';
+import { currentUserState } from '../user';
 
 export const requestIDtodos = atom({
   key: 'requestIDtodos',
@@ -20,6 +21,7 @@ export const filterTodosState = atom({
   key: 'filterTodosState',
   default: {
     completed: false,
+    my: false,
   },
 });
 
@@ -29,14 +31,33 @@ export const todosResponseQuery = selector({
   get: async ({ get }) => {
     get(requestIDtodos);
 
-    const { completed } = get(filterTodosState);
+    const { completed, my } = get(filterTodosState);
+    const user = get(currentUserState);
     const page = get(currentPageState);
 
     // Only completed todos
+    if (my && completed) {
+      const response = await getTodos({
+        page,
+        q: `&user_id=${user.id}&completed=true`,
+      }).catch((err) => {
+        throw err;
+      });
+      return response;
+    }
     if (completed) {
       const response = await getTodos({
         page,
         q: '&completed=true',
+      }).catch((err) => {
+        throw err;
+      });
+      return response;
+    }
+    if (my) {
+      const response = await getTodos({
+        page,
+        q: `&user_id=${user.id}`,
       }).catch((err) => {
         throw err;
       });
@@ -83,7 +104,7 @@ export const newTodoTextLengthQuery = selector({
   key: 'newTodoTextLengthQuery',
   get: ({ get }) => {
     const text = get(newTodoTextState);
-    return `${text.length}/320`;
+    return `${text.length}/200`;
   },
 });
 

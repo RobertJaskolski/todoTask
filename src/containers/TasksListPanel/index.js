@@ -25,6 +25,9 @@ function TasksListPanel() {
   const handleToggleCompleteFilter = () => {
     setFilters({ ...filters, completed: !filters.completed });
   };
+  const handleToggleMyFilter = () => {
+    setFilters({ ...filters, my: !filters.my });
+  };
 
   // Handlers pagination
   const handleNexPage = () => {
@@ -67,6 +70,8 @@ function TasksListPanel() {
           totalUncompleted={totalUncompleted}
           handleToggleCompleted={handleToggleCompleteFilter}
           completed={filters?.completed}
+          handleToggleMy={handleToggleMyFilter}
+          my={filters?.my}
         />
       </Box>
       <Box
