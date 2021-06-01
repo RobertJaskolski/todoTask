@@ -5,7 +5,7 @@ import { handleDateToString } from '../../utils';
 import { deleteTodo } from '../../api/todos';
 
 // Components
-import TaskForm from '../../components/TaskForm';
+import EditTodoForm from '../../components/EditTodoForm';
 
 // Hocs
 import WithModal from '../../hoc/WithModal';
@@ -17,7 +17,7 @@ import { getUserQuery } from '../../recoil/user';
 import { useRefreshReques } from '../../hook/useRefreshReques';
 import { requestIDtodos } from '../../recoil/todo';
 // Modal
-const TaskFormModal = WithModal(TaskForm);
+const EditTodoFormModal = WithModal(EditTodoForm);
 
 function TodoDetails() {
   const forceRefreshTodos = useRefreshReques(requestIDtodos);
@@ -122,7 +122,7 @@ function TodoDetails() {
           </Box>
         </Flex>
       </Box>
-      <TaskFormModal
+      <EditTodoFormModal
         todo={todo}
         isOpen={showModal}
         onClose={handleToggleModal}

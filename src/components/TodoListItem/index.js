@@ -11,7 +11,7 @@ import Link from '../Link';
 import { requestIDtodos } from '../../recoil/todo';
 import { useRefreshReques } from '../../hook/useRefreshReques';
 
-function TaskListItem({ title, id, completed }) {
+function TodoListItem({ title, id, completed }) {
   const forceRefreshTodos = useRefreshReques(requestIDtodos);
   const { addToast } = useToasts();
 
@@ -81,4 +81,4 @@ function TaskListItem({ title, id, completed }) {
   );
 }
 
-export default TaskListItem;
+export default TodoListItem;

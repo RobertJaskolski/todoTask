@@ -7,7 +7,7 @@ import {
   BsChevronRight,
 } from 'react-icons/bs';
 
-function PaginationTasks({
+function PaginationTodosList({
   pagination,
   handleNexPage,
   handleBackPage,
@@ -107,4 +107,4 @@ function PaginationTasks({
   );
 }
 
-export default PaginationTasks;
+export default PaginationTodosList;

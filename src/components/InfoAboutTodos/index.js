@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex, Switch } from 'theme-ui';
 
-function InfoAboutTasks({
+function InfoAboutTodos({
   completed,
   totalCompleted,
   totalUncompleted,
@@ -78,4 +78,4 @@ function InfoAboutTasks({
   );
 }
 
-export default InfoAboutTasks;
+export default InfoAboutTodos;

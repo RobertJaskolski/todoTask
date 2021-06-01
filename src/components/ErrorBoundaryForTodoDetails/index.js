@@ -1,5 +1,5 @@
 import React from 'react';
-import SkeletonTaskDetails from '../SkeletonTaskDetails';
+import SkeletonTodoDetails from '../SkeletonTodoDetails';
 
 class ErrorBoundaryForTodoDetails extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class ErrorBoundaryForTodoDetails extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      return <SkeletonTaskDetails isError={this.state.error} />;
+      return <SkeletonTodoDetails isError={this.state.error} />;
     }
     return this.props.children;
   }

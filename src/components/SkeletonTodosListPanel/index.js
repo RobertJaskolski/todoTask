@@ -7,7 +7,7 @@ import {
   BsChevronRight,
 } from 'react-icons/bs';
 
-function SkeletonTasksListPanel({ isError }) {
+function SkeletonTodosListPanel({ isError }) {
   return (
     <Box
       as='section'
@@ -259,4 +259,4 @@ function SkeletonTasksListPanel({ isError }) {
   );
 }
 
-export default SkeletonTasksListPanel;
+export default SkeletonTodosListPanel;

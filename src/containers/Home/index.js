@@ -6,7 +6,7 @@ import NewTodoPanel from '../NewTodoPanel';
 import TodoListPanel from '../TodoListPanel';
 
 // Skeletons
-import SkeletonTasksListPanel from '../../components/SkeletonTasksListPanel';
+import SkeletonTodosListPanel from '../../components/SkeletonTodosListPanel';
 
 // ErrorBoundarys
 import ErrorBoundaryForList from '../../components/ErrorBoundaryForList';
@@ -20,7 +20,7 @@ function Home() {
     <Flex sx={{ flexWrap: 'wrap' }}>
       <NewTaskPanelWithUser />
       <ErrorBoundaryForList>
-        <React.Suspense fallback={<SkeletonTasksListPanel />}>
+        <React.Suspense fallback={<SkeletonTodosListPanel />}>
           <TodoListPanel />
         </React.Suspense>
       </ErrorBoundaryForList>

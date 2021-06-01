@@ -15,7 +15,7 @@ import { updateTodo } from '../../api/todos';
 import { useRefreshReques } from '../../hook/useRefreshReques';
 import { requestIDtodo, requestIDtodos } from '../../recoil/todo';
 
-function TaskForm({ onClose, todo }) {
+function EditTodoForm({ onClose, todo }) {
   const forceRefreshTodo = useRefreshReques(requestIDtodo);
   const forceRefreshTodos = useRefreshReques(requestIDtodos);
   const { register, handleSubmit } = useForm();
@@ -63,4 +63,4 @@ function TaskForm({ onClose, todo }) {
   );
 }
 
-export default TaskForm;
+export default EditTodoForm;

@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Box } from 'theme-ui';
 
 // Components
-import InfoAboutTasks from '../../components/InfoAboutTasks';
-import TasksList from '../../components/TasksList';
-import PaginationTasks from '../../components/PaginationTasks';
+import InfoAboutTodos from '../../components/InfoAboutTodos';
+import TodosList from '../../components/TodosList';
+import PaginationTodosList from '../../components/PaginationTodosList';
 
 // Recoil
 import { useRecoilValue, useRecoilState } from 'recoil';
@@ -65,7 +65,7 @@ function TodoListPanel() {
       }}
     >
       <Box sx={{ width: '90%', margin: '0px auto' }}>
-        <InfoAboutTasks
+        <InfoAboutTodos
           totalCompleted={totalCompleted}
           totalUncompleted={totalUncompleted}
           handleToggleCompleted={handleToggleCompleteFilter}
@@ -82,7 +82,7 @@ function TodoListPanel() {
           borderRadius: '5px',
         }}
       >
-        <PaginationTasks
+        <PaginationTodosList
           pagination={pagination}
           currentPage={currentPage}
           handleBackPage={handleBackPage}
@@ -93,7 +93,7 @@ function TodoListPanel() {
         />
       </Box>
 
-      <TasksList todoList={todoList} />
+      <TodosList todoList={todoList} />
 
       <Box
         sx={{
@@ -103,7 +103,7 @@ function TodoListPanel() {
           borderRadius: '5px',
         }}
       >
-        <PaginationTasks
+        <PaginationTodosList
           pagination={pagination}
           currentPage={currentPage}
           handleBackPage={handleBackPage}

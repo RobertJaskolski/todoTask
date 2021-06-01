@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex, Box, Heading, Button, Spinner } from 'theme-ui';
 import { useHistory } from 'react-router-dom';
 
-export default function SkeletonTaskDetails({ isError }) {
+function SkeletonTodoDetails({ isError }) {
   const history = useHistory();
 
   const handleGoBack = () => {
@@ -88,3 +88,5 @@ export default function SkeletonTaskDetails({ isError }) {
     </Flex>
   );
 }
+
+export default SkeletonTodoDetails;
