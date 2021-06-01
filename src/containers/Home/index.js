@@ -2,8 +2,8 @@ import React from 'react';
 import { Flex } from 'theme-ui';
 
 // Containers
-import NewTaskPanel from '../NewTaskPanel';
-import TasksListPanel from '../TasksListPanel';
+import NewTodoPanel from '../NewTodoPanel';
+import TodoListPanel from '../TodoListPanel';
 
 // Skeletons
 import SkeletonTasksListPanel from '../../components/SkeletonTasksListPanel';
@@ -13,7 +13,7 @@ import ErrorBoundaryForList from '../../components/ErrorBoundaryForList';
 
 // Hoc
 import WithUser from '../../hoc/WithUser';
-const NewTaskPanelWithUser = WithUser(NewTaskPanel);
+const NewTaskPanelWithUser = WithUser(NewTodoPanel);
 
 function Home() {
   return (
@@ -21,7 +21,7 @@ function Home() {
       <NewTaskPanelWithUser />
       <ErrorBoundaryForList>
         <React.Suspense fallback={<SkeletonTasksListPanel />}>
-          <TasksListPanel />
+          <TodoListPanel />
         </React.Suspense>
       </ErrorBoundaryForList>
     </Flex>

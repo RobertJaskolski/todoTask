@@ -8,7 +8,7 @@ import { RecoilRoot } from 'recoil';
 // COMPONENTS AND CONTAINERS
 import Home from './containers/Home';
 import Header from './components/Header';
-import TaskDetails from './containers/TaskDetails';
+import TodoDetails from './containers/TodoDetails';
 import SkeletonTaskDetails from './components/SkeletonTaskDetails';
 
 // ErrorBoundary
@@ -26,7 +26,7 @@ function App() {
                 <Route path='/todo/:id'>
                   <ErrorBoundaryForTodoDetails>
                     <React.Suspense fallback={<SkeletonTaskDetails />}>
-                      <TaskDetails />
+                      <TodoDetails />
                     </React.Suspense>
                   </ErrorBoundaryForTodoDetails>
                 </Route>

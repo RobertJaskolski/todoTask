@@ -12,7 +12,7 @@ import {
 } from '../../recoil/todo';
 import { useRefreshReques } from '../../hook/useRefreshReques';
 
-function NewTaskPanel({ user }) {
+function NewTodoPanel({ user }) {
   const foreceRefreshTodos = useRefreshReques(requestIDtodos);
   const [newTodoText, setNewTodoText] = useRecoilState(newTodoTextState);
   const todoTextLenght = useRecoilValue(newTodoTextLengthQuery);
@@ -110,4 +110,4 @@ function NewTaskPanel({ user }) {
   );
 }
 
-export default NewTaskPanel;
+export default NewTodoPanel;

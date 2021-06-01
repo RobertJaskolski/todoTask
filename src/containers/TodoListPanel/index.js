@@ -15,7 +15,7 @@ import {
   currentPageState,
 } from '../../recoil/todo';
 
-function TasksListPanel() {
+function TodoListPanel() {
   const { todoList, pagination } = useRecoilValue(todosResponseState);
   const { totalCompleted, totalUncompleted } = useRecoilValue(todosStatsQuery);
   const [filters, setFilters] = useRecoilState(filterTodosState);
@@ -117,4 +117,4 @@ function TasksListPanel() {
   );
 }
 
-export default TasksListPanel;
+export default TodoListPanel;

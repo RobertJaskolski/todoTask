@@ -19,7 +19,7 @@ import { requestIDtodos } from '../../recoil/todo';
 // Modal
 const TaskFormModal = WithModal(TaskForm);
 
-function TaskDetails() {
+function TodoDetails() {
   const forceRefreshTodos = useRefreshReques(requestIDtodos);
   const { id } = useParams();
   const history = useHistory();
@@ -131,4 +131,4 @@ function TaskDetails() {
   );
 }
 
-export default TaskDetails;
+export default TodoDetails;
