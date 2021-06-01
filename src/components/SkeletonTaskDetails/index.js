@@ -37,11 +37,7 @@ export default function SkeletonTaskDetails({ isError }) {
           as='h2'
         >
           <b>Tytuł:</b>{' '}
-          {isError ? (
-            'Wystąpił problem z siecią'
-          ) : (
-            <Spinner sx={{ width: '18px', height: '18px' }} />
-          )}
+          {isError || <Spinner sx={{ width: '18px', height: '18px' }} />}
         </Heading>
         <Heading
           sx={{

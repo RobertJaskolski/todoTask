@@ -6,13 +6,21 @@ import { deleteTodo, updateTodo } from '../../api/todos';
 // Components
 import Link from '../Link';
 
+// Recoil
+import { requestIDtodos } from '../../recoil/todo';
+import { useRefreshReques } from '../../hook/useRefreshReques';
+
 function TaskListItem({ title, id, completed }) {
+  const forceRefreshTodos = useRefreshReques(requestIDtodos);
+
   const handleUpdateTask = async (e) => {
     await updateTodo({ todo: { id }, newData: { completed: true } });
+    forceRefreshTodos();
   };
 
   const handleDeleteTask = (e) => {
     deleteTodo({ todo: { id } });
+    forceRefreshTodos();
   };
 
   return (

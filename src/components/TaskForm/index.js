@@ -12,7 +12,13 @@ import {
 import { useForm } from 'react-hook-form';
 import { updateTodo } from '../../api/todos';
 
+// Recoil
+import { useRefreshReques } from '../../hook/useRefreshReques';
+import { requestIDtodo, requestIDtodos } from '../../recoil/todo';
+
 function TaskForm({ onClose, todo }) {
+  const forceRefreshTodo = useRefreshReques(requestIDtodo);
+  const forceRefreshTodos = useRefreshReques(requestIDtodos);
   const { register, handleSubmit } = useForm();
   const { title, completed } = todo;
 
@@ -22,6 +28,8 @@ function TaskForm({ onClose, todo }) {
 
   const handleSubmitEditTask = (data) => {
     handleUpdateTask({ data });
+    forceRefreshTodo();
+    forceRefreshTodos();
     onClose();
   };
 

@@ -6,8 +6,12 @@ export const getTodo = ({ id = 1 }) =>
     endpoint: `/todos/${id}`,
   }).then((res) => {
     if (res.code === 200) return res.data;
-    if (res.code !== 200)
-      throw Promise.reject(`Error HTTP status: ${res.code}`);
+    if (res.code === 404)
+      throw Promise.reject(
+        `Nie ma takiego zadanie - Możliwe, że przed chwilą ktoś je usunął ;)`
+      );
+    if (res.code !== 200 && res.code !== 404)
+      throw Promise.reject(`Wystąpił błąd z zaptaniem!`);
   });
 
 // GET ALL TODOS
