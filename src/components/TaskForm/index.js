@@ -12,19 +12,16 @@ import {
 import { useForm } from 'react-hook-form';
 import { updateTodo } from '../../api/todos';
 
-// Recoil
-//import { useSetRecoilState } from 'recoil';
-//import { forceReloadState } from '../../recoil/todo';
-
-function TaskForm({ onClose, task }) {
-  //const setForceReloadState = useSetRecoilState(forceReloadState);
+function TaskForm({ onClose, todo }) {
   const { register, handleSubmit } = useForm();
+  const { title, completed } = todo;
+
   const handleUpdateTask = async ({ data = {} }) => {
-    return await updateTodo({ task, newTaskInfo: data }).then((res) => res);
+    return await updateTodo({ todo, newData: data }).then((res) => res);
   };
+
   const handleSubmitEditTask = (data) => {
     handleUpdateTask({ data });
-    //setForceReloadState((x) => x + 1);
     onClose();
   };
 
@@ -38,7 +35,7 @@ function TaskForm({ onClose, task }) {
         {...register('title', { required: true })}
         placeholder='Wpisz nową treść'
         rows={10}
-        defaultValue={task.title}
+        defaultValue={title}
       />
       <Box sx={{ width: '80%', margin: '0px auto' }}>0/600</Box>
       <Flex sx={{ justifyContent: 'center' }}>
@@ -46,7 +43,7 @@ function TaskForm({ onClose, task }) {
           Ukończone
           <Checkbox
             {...register('completed')}
-            defaultChecked={task.completed}
+            defaultChecked={completed}
             sx={{ ml: '10px' }}
           />
         </Label>

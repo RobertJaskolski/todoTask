@@ -1,5 +1,10 @@
-import { atom, selector } from 'recoil';
-import { getTodos } from '../../api/todos';
+import { atom, selector, selectorFamily, atomFamily } from 'recoil';
+import { getTodos, getTodo } from '../../api/todos';
+
+export const requestID = atom({
+  key: 'requestID',
+  default: 0,
+});
 
 export const currentPageState = atom({
   key: 'currentPageState',
@@ -17,6 +22,8 @@ export const filterTodosState = atom({
 export const todosResponseQuery = selector({
   key: 'todosResponseQuery',
   get: async ({ get }) => {
+    get(requestID);
+
     const { completed } = get(filterTodosState);
     const page = get(currentPageState);
 
@@ -73,4 +80,22 @@ export const newTodoTextLengthQuery = selector({
     const text = get(newTodoTextState);
     return `${text.length}/320`;
   },
+});
+
+// Todo query and atom
+export const todoResponseQuery = selectorFamily({
+  key: 'todoResponseQuery',
+  get:
+    (id) =>
+    async ({ get }) => {
+      const response = await getTodo({ id }).catch((err) => {
+        throw err;
+      });
+      return response;
+    },
+});
+
+export const todoResponseState = atomFamily({
+  key: 'todoResponseState',
+  default: todoResponseQuery,
 });

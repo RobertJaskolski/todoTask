@@ -11,6 +11,9 @@ import Header from './components/Header';
 import TaskDetails from './containers/TaskDetails';
 import SkeletonTaskDetails from './components/SkeletonTaskDetails';
 
+// ErrorBoundary
+import ErrorBoundaryForTodoDetails from './components/ErrorBoundaryForTodoDetails';
+
 function App() {
   return (
     <RecoilRoot>
@@ -21,9 +24,11 @@ function App() {
               <Header />
               <Switch>
                 <Route path='/todo/:id'>
-                  <React.Suspense fallback={<SkeletonTaskDetails />}>
-                    <TaskDetails />
-                  </React.Suspense>
+                  <ErrorBoundaryForTodoDetails>
+                    <React.Suspense fallback={<SkeletonTaskDetails />}>
+                      <TaskDetails />
+                    </React.Suspense>
+                  </ErrorBoundaryForTodoDetails>
                 </Route>
                 <Route path='/'>
                   <Home />

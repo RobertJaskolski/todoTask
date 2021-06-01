@@ -11,20 +11,19 @@ import TaskForm from '../../components/TaskForm';
 import WithModal from '../../hoc/WithModal';
 
 // Recoil
-//import { useSetRecoilState, useRecoilValue } from 'recoil';
-//import { currentTaskIDState, taskState } from '../../recoil/todo';
-//import { forceReloadState } from '../../recoil/todo';
+import { useRecoilValue } from 'recoil';
+import { todoResponseState } from '../../recoil/todo';
 
+// Modal
 const TaskFormModal = WithModal(TaskForm);
 
 function TaskDetails() {
-  //const setForceReloadState = useSetRecoilState(forceReloadState);
-  const { id } = useParams();
   const history = useHistory();
-  //const setCurrentTaskID = useSetRecoilState(currentTaskIDState);
-  //const task = useRecoilValue(taskState);
-  const task = {};
+  const { id } = useParams();
+  const todo = useRecoilValue(todoResponseState(id));
+  const { title, created_at, updated_at, completed } = todo;
   const [showModal, setShowModal] = useState(false);
+
   const handleGoBack = (e) => {
     history.goBack();
   };
@@ -32,13 +31,9 @@ function TaskDetails() {
     setShowModal(!showModal);
   };
   const handleDeleteTask = (e) => {
-    deleteTodo({ task });
-    //setForceReloadState((x) => x + 1);
+    deleteTodo({ todo });
     history.push('/');
   };
-  useEffect(() => {
-    //setCurrentTaskID(id);
-  });
 
   return (
     <Flex
@@ -67,7 +62,7 @@ function TaskDetails() {
           }}
           as='h2'
         >
-          <b>Tytuł:</b> {task?.title}
+          <b>Tytuł:</b> {title}
         </Heading>
         <Heading
           sx={{
@@ -78,16 +73,16 @@ function TaskDetails() {
           }}
           as='h2'
         >
-          <b>Zakończone:</b> {task?.completed ? 'Tak' : 'Nie'}
+          <b>Zakończone:</b> {completed ? 'Tak' : 'Nie'}
         </Heading>
         <Flex sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <Box>
             <b>Utworzono: </b>
-            {handleDateToString(task?.created_at)}
+            {handleDateToString(created_at)}
           </Box>
           <Box>
             <b>Aktualizacja: </b>
-            {handleDateToString(task?.updated_at)}
+            {handleDateToString(updated_at)}
           </Box>
         </Flex>
         <Flex
@@ -111,7 +106,7 @@ function TaskDetails() {
         </Flex>
       </Box>
       <TaskFormModal
-        task={task}
+        todo={todo}
         isOpen={showModal}
         onClose={handleToggleModal}
       />

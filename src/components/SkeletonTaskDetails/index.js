@@ -1,7 +1,14 @@
 import React from 'react';
 import { Flex, Box, Heading, Button, Spinner } from 'theme-ui';
+import { useHistory } from 'react-router-dom';
 
-export default function SkeletonTaskDetails() {
+export default function SkeletonTaskDetails({ isError }) {
+  const history = useHistory();
+
+  const handleGoBack = () => {
+    history.goBack();
+  };
+
   return (
     <Flex
       sx={{
@@ -29,7 +36,12 @@ export default function SkeletonTaskDetails() {
           }}
           as='h2'
         >
-          <b>Tytuł:</b> <Spinner sx={{ width: '18px', height: '18px' }} />
+          <b>Tytuł:</b>{' '}
+          {isError ? (
+            'Wystąpił problem z siecią'
+          ) : (
+            <Spinner sx={{ width: '18px', height: '18px' }} />
+          )}
         </Heading>
         <Heading
           sx={{
@@ -55,7 +67,9 @@ export default function SkeletonTaskDetails() {
         <Flex
           sx={{ justifyContent: 'space-between', flexWrap: 'wrap', mt: '15px' }}
         >
-          <Button sx={{ mb: '15px' }}>Powrót</Button>
+          <Button onClick={handleGoBack} sx={{ mb: '15px' }}>
+            Powrót
+          </Button>
           <Box>
             <Button variant='deleted' sx={{ mr: '15px' }}>
               Usuń
