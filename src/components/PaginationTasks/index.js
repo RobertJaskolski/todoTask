@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Flex, Box, Select, IconButton } from 'theme-ui';
 import {
   BsChevronDoubleLeft,
@@ -7,35 +7,17 @@ import {
   BsChevronRight,
 } from 'react-icons/bs';
 
-// Recoil
-import { useRecoilState } from 'recoil';
-import { currentPageState } from '../../recoil/todo';
-
-function PaginationTasks({ pagination }) {
+function PaginationTasks({
+  pagination,
+  handleNexPage,
+  handleBackPage,
+  handleGoToFirst,
+  handleGoToLast,
+  handleSelectPage,
+  currentPage,
+}) {
   const { total, pages } = pagination;
-  const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
 
-  const handleNexPage = (e) => {
-    setCurrentPage((page) => page + 1);
-  };
-  const handleBackPage = (e) => {
-    setCurrentPage((page) => page - 1);
-  };
-  const handleGoToFirst = (e) => {
-    setCurrentPage(1);
-  };
-  const handleGoToLast = (e) => {
-    setCurrentPage(pages);
-  };
-  const handleSelectPage = (e) => {
-    setCurrentPage(Number(e.target.value));
-  };
-
-  useEffect(() => {
-    if (currentPage > pages) {
-      setCurrentPage(1);
-    }
-  });
   return (
     <Flex
       sx={{

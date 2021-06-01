@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from 'theme-ui';
 
 // Components
@@ -12,16 +12,42 @@ import {
   todosResponseState,
   todosStatsQuery,
   filterTodosState,
+  currentPageState,
 } from '../../recoil/todo';
 
 function TasksListPanel() {
   const { todoList, pagination } = useRecoilValue(todosResponseState);
   const { totalCompleted, totalUncompleted } = useRecoilValue(todosStatsQuery);
   const [filters, setFilters] = useRecoilState(filterTodosState);
+  const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
 
+  // Handlers filters
   const handleToggleCompleteFilter = () => {
     setFilters({ ...filters, completed: !filters.completed });
   };
+
+  // Handlers pagination
+  const handleNexPage = () => {
+    setCurrentPage((page) => page + 1);
+  };
+  const handleBackPage = () => {
+    setCurrentPage((page) => page - 1);
+  };
+  const handleGoToFirst = () => {
+    setCurrentPage(1);
+  };
+  const handleGoToLast = () => {
+    setCurrentPage(pagination?.pages);
+  };
+  const handleSelectPage = (e) => {
+    setCurrentPage(Number(e.target.value));
+  };
+
+  useEffect(() => {
+    if (currentPage > pagination?.pages) {
+      setCurrentPage(1);
+    }
+  });
 
   return (
     <Box
@@ -51,7 +77,15 @@ function TasksListPanel() {
           borderRadius: '5px',
         }}
       >
-        <PaginationTasks pagination={pagination} />
+        <PaginationTasks
+          pagination={pagination}
+          currentPage={currentPage}
+          handleBackPage={handleBackPage}
+          handleNexPage={handleNexPage}
+          handleGoToFirst={handleGoToFirst}
+          handleGoToLast={handleGoToLast}
+          handleSelectPage={handleSelectPage}
+        />
       </Box>
 
       <TasksList todoList={todoList} />
@@ -64,7 +98,15 @@ function TasksListPanel() {
           borderRadius: '5px',
         }}
       >
-        <PaginationTasks pagination={pagination} />
+        <PaginationTasks
+          pagination={pagination}
+          currentPage={currentPage}
+          handleBackPage={handleBackPage}
+          handleNexPage={handleNexPage}
+          handleGoToFirst={handleGoToFirst}
+          handleGoToLast={handleGoToLast}
+          handleSelectPage={handleSelectPage}
+        />
       </Box>
     </Box>
   );

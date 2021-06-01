@@ -54,7 +54,7 @@ function SkeletonTasksListPanel({ isError }) {
               fontWeight: 'bold',
               padding: '10px 20px',
               opacity: 0.9,
-              flexBasis: ['100%', null, '33%'],
+              flexBasis: ['100%'],
               mb: ['10px', null, '0px'],
             }}
           >

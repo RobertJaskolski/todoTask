@@ -16,7 +16,7 @@ export const getTodos = ({ page = 1, q = '' }) =>
   }).then((res) => {
     if (res.code === 200)
       return { todoList: [...res.data], pagination: res.meta.pagination };
-    if (res.code !== 200) throw 'Loading data error';
+    if (res.code !== 200) throw Error('Loading data error');
   });
 
 // POST

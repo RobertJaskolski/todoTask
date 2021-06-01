@@ -5,27 +5,28 @@ import { addTodo } from '../../api/todos';
 
 // Recoil
 import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
-//import { newTaskTextState, counterCharsQuery } from '../../recoil/todo';
 import { userState } from '../../recoil/user';
+import { newTodoTextState, newTodoTextLengthQuery } from '../../recoil/todo';
 
 function NewTaskPanel() {
-  //const [newTask, setNewTask] = useRecoilState(newTaskTextState);
+  const [newTodoText, setNewTodoText] = useRecoilState(newTodoTextState);
   const user = useRecoilValueLoadable(userState);
-  //const counterChars = useRecoilValue(counterCharsQuery);
-  const newTask = '';
+  const todoTextLenght = useRecoilValue(newTodoTextLengthQuery);
   const { addToast } = useToasts();
+
   const handleOnChangeText = (e) => {
-    //setNewTask(e.target.value);
+    setNewTodoText(e.target.value);
   };
-  const handlePostNewTask = (e) => {
-    if (!newTask) {
+
+  const handlePostNewTodo = (e) => {
+    if (!newTodoText) {
       addToast('Dodaj treść zadania', {
         appearance: 'info',
         autoDismiss: true,
       });
       return;
     }
-    if (newTask.length > 320) {
+    if (newTodoText?.length > 320) {
       addToast('Treść jest za duża', {
         appearance: 'info',
         autoDismiss: true,
@@ -35,10 +36,8 @@ function NewTaskPanel() {
     if (user?.contents[0])
       addTodo({
         data: {
-          title: newTask,
+          title: newTodoText,
           completed: false,
-          created_at: new Date(),
-          updated_at: new Date(),
         },
         user_id: user.contents[0].id,
       })
@@ -54,16 +53,17 @@ function NewTaskPanel() {
               autoDismiss: true,
             });
           }
-          //setNewTask('');
+          setNewTodoText('');
         })
         .catch(() => {
           addToast('Nie udało się stworzyć zadania!', {
             appearance: 'error',
             autoDismiss: true,
           });
-          //setNewTask('');
+          setNewTodoText('');
         });
   };
+
   return (
     <Box
       as='section'
@@ -81,7 +81,7 @@ function NewTaskPanel() {
       <Textarea
         placeholder='Wpisz swoje zadanie'
         rows={20}
-        value={'newTask'}
+        value={newTodoText}
         onChange={handleOnChangeText}
       />
 
@@ -92,11 +92,11 @@ function NewTaskPanel() {
           margin: '0px auto',
         }}
       >
-        <Box sx={{ color: 'forms' }}>100/600</Box>
+        <Box sx={{ color: 'forms' }}>{todoTextLenght}</Box>
         <Button
           aria-label='Dodaj zadanie'
           variant='secondary'
-          onClick={handlePostNewTask}
+          onClick={handlePostNewTodo}
         >
           Dodaj zadanie
         </Button>

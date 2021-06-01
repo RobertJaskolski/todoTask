@@ -60,3 +60,17 @@ export const todosStatsQuery = selector({
     };
   },
 });
+
+// New todo text atom and length text
+export const newTodoTextState = atom({
+  key: 'newTodoTextState',
+  default: '',
+});
+
+export const newTodoTextLengthQuery = selector({
+  key: 'newTodoTextLengthQuery',
+  get: ({ get }) => {
+    const text = get(newTodoTextState);
+    return `${text.length}/320`;
+  },
+});
