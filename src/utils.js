@@ -1,4 +1,4 @@
-import { getUser, addUser, updateUser } from './api/user';
+import { getUserByEmail, addUser, updateUser } from './api/user';
 import { DEFAULT_USER } from './consts';
 
 // Parse Date to string in format "DD/MM/YYYY HH:mm"
@@ -19,12 +19,12 @@ export const handleDateToString = (stringDate) => {
 
 // CHECK USER
 export const handleCheckUser = async ({ user = DEFAULT_USER }) => {
-  let checkUser = await getUser({ user });
+  let checkUser = await getUserByEmail({ user });
   if (checkUser?.length === 0) {
     checkUser = await addUser({ user });
     return checkUser;
   }
-  if (checkUser[0].name !== user.name) {
+  if (checkUser[0].name !== user.name || checkUser[0].gender !== user.gender) {
     checkUser = await updateUser({ newUserInfo: user, user: checkUser[0] });
     return checkUser;
   }

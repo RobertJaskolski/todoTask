@@ -54,6 +54,17 @@ export default function SkeletonTaskDetails({ isError }) {
         >
           <b>Zakończone:</b> <Spinner sx={{ width: '18px', height: '18px' }} />
         </Heading>
+        <Heading
+          sx={{
+            m: '20px 0px',
+            textAlign: 'left',
+            fontWeight: 'text',
+            textTransform: 'none',
+          }}
+          as='h2'
+        >
+          <b>Twórca:</b> <Spinner sx={{ width: '18px', height: '18px' }} />
+        </Heading>
         <Flex sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <Box>
             <b>Utworzono: </b>

@@ -1,8 +1,15 @@
 import { client } from './index';
 // Get user
-export const getUser = ({ user }) =>
+export const getUser = ({ id }) =>
   client({
-    endpoint: '/users',
+    endpoint: `/users/${id}`,
+  }).then((res) => {
+    return res.data;
+  });
+
+export const getUserByEmail = ({ user }) =>
+  client({
+    endpoint: `/users`,
     query: `?email=${user.email}`,
   }).then((res) => {
     return res.data;

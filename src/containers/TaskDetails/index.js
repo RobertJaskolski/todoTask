@@ -13,16 +13,19 @@ import WithModal from '../../hoc/WithModal';
 // Recoil
 import { useRecoilValue } from 'recoil';
 import { todoResponseState } from '../../recoil/todo';
+import { getUserQuery } from '../../recoil/user';
 
 // Modal
 const TaskFormModal = WithModal(TaskForm);
 
 function TaskDetails() {
-  const history = useHistory();
   const { id } = useParams();
-  const todo = useRecoilValue(todoResponseState(id));
-  const { title, created_at, updated_at, completed } = todo;
+  const history = useHistory();
   const [showModal, setShowModal] = useState(false);
+  const todo = useRecoilValue(todoResponseState(id));
+  const { title, created_at, updated_at, completed, user_id } = todo;
+  const user = useRecoilValue(getUserQuery(user_id));
+  const { name } = user;
 
   const handleGoBack = (e) => {
     history.goBack();
@@ -74,6 +77,17 @@ function TaskDetails() {
           as='h2'
         >
           <b>Zakończone:</b> {completed ? 'Tak' : 'Nie'}
+        </Heading>
+        <Heading
+          sx={{
+            m: '20px 0px',
+            textAlign: 'left',
+            fontWeight: 'text',
+            textTransform: 'none',
+          }}
+          as='h2'
+        >
+          <b>Twórca:</b> {name}
         </Heading>
         <Flex sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <Box>

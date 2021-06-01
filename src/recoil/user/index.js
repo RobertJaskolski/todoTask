@@ -1,6 +1,17 @@
-import { atom, selector } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 import { handleCheckUser } from '../../utils';
+import { getUser } from '../../api/user';
 import { DEFAULT_USER } from '../../consts';
+
+export const getUserQuery = selectorFamily({
+  key: 'getUserQuery',
+  get:
+    (id) =>
+    async ({ get }) => {
+      const user = await getUser({ id });
+      return user;
+    },
+});
 
 export const checkUserQuery = selector({
   key: 'checkUserQuery',
