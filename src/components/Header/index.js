@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Flex, Box, Switch, useColorMode, Button } from 'theme-ui';
-import WithModal from '../../hoc/WithModal';
 import UserForm from '../UserForm';
+
+// Hocs
+import WithModal from '../../hoc/WithModal';
 
 const UserFormModal = WithModal(UserForm);
 

@@ -1,14 +1,17 @@
 import React from 'react';
 import { Card, IconButton, Box } from 'theme-ui';
-import Link from '../Link';
 import { FiTrash2, FiCheck } from 'react-icons/fi';
 import { deleteTodo, updateTodo } from '../../api/todos';
-import { forceReloadState } from '../../recoil/todo';
+
+// Components
+import Link from '../Link';
+
+// Recoil
 import { useSetRecoilState } from 'recoil';
-import { useHistory } from 'react-router-dom';
+import { forceReloadState } from '../../recoil/todo';
+
 function TaskListItem({ title, id, completed }) {
   const setForceReloadState = useSetRecoilState(forceReloadState);
-  const history = useHistory();
 
   const handleUpdateTask = async (e) => {
     await updateTodo({ task: { id }, newTaskInfo: { completed: true } });

@@ -1,8 +1,12 @@
 import React from 'react';
 import { Box } from 'theme-ui';
+
+// Components
 import InfoAboutTasks from '../../components/InfoAboutTasks';
 import TasksList from '../../components/TasksList';
 import PaginationTasks from '../../components/PaginationTasks';
+
+// Recoil
 import { useRecoilValue } from 'recoil';
 import { tasksState } from '../../recoil/todos';
 

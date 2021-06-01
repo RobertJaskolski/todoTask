@@ -1,5 +1,7 @@
 import React from 'react';
 import { Box, Flex, Switch } from 'theme-ui';
+
+// Recoil
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { filterState, tasksStats } from '../../recoil/todos';
 

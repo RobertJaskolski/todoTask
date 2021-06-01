@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Flex, Box, Heading, Button } from 'theme-ui';
 import { useParams, useHistory } from 'react-router-dom';
+import { handleDateToString } from '../../utils';
+
+// Components
+import TaskForm from '../../components/TaskForm';
+
+// Hocs
+import WithModal from '../../hoc/WithModal';
+
+// Recoil
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { currentTaskIDState, taskState } from '../../recoil/todo';
-import { handleDateToString } from '../../utils';
-import WithModal from '../../hoc/WithModal';
-import TaskForm from '../../components/TaskForm';
 import { deleteTodo } from '../../api/todos';
 import { forceReloadState } from '../../recoil/todo';
 

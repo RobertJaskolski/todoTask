@@ -1,5 +1,4 @@
 import { client } from './index';
-import { DEFAULT_USER } from '../consts';
 // Get user
 export const getUser = ({ user }) =>
   client({
@@ -35,18 +34,4 @@ export const updateUser = ({ newUserInfo, user }) => {
     if (res.code === 204 || res.code === 200) return res.data[0];
     else return user;
   });
-};
-
-// CHECK USER
-export const handleCheckUser = async ({ user = DEFAULT_USER }) => {
-  let checkUser = await getUser({ user });
-  if (checkUser?.length === 0) {
-    checkUser = await addUser({ user });
-    return checkUser;
-  }
-  if (checkUser[0].name !== user.name) {
-    checkUser = await updateUser({ newUserInfo: user, user: checkUser[0] });
-    return checkUser;
-  }
-  return checkUser;
 };

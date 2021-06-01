@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link as ReactRouterLink } from 'react-router-dom';
 import { Link as ThemeUiLink } from 'theme-ui';
+import { Link as ReactRouterLink } from 'react-router-dom';
 
 const Link = ({ children, to, sx = {} }) => {
   return (

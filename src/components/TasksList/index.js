@@ -1,5 +1,7 @@
 import React from 'react';
 import { Grid } from 'theme-ui';
+
+// Components
 import TaskListItem from '../TaskListItem';
 
 function TasksList({ tasksList }) {

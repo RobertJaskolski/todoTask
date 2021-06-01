@@ -1,10 +1,12 @@
 import React from 'react';
 import { Heading, Textarea, Flex, Button, Box } from 'theme-ui';
-import { addTodo } from '../../api/todos';
+import { useToasts } from 'react-toast-notifications';
+
+// Recoil
 import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { addTodo } from '../../api/todos';
 import { newTaskTextState, counterCharsQuery } from '../../recoil/todo';
 import { userState } from '../../recoil/user';
-import { useToasts } from 'react-toast-notifications';
 
 function NewTaskPanel() {
   const [newTask, setNewTask] = useRecoilState(newTaskTextState);

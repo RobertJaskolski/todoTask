@@ -1,5 +1,6 @@
 import React from 'react';
 import SkeletonTasksListPanel from '../SkeletonTasksListPanel';
+
 class ErrorBoundaryForList extends React.Component {
   constructor(props) {
     super(props);

@@ -1,8 +1,10 @@
 import React from 'react';
+import { Flex, Box, Input, Label, Radio, Button, Close } from 'theme-ui';
 import { useForm } from 'react-hook-form';
+
+// Recoil
 import { useRecoilState } from 'recoil';
 import { newUserState } from '../../recoil/user';
-import { Flex, Box, Input, Label, Radio, Button, Close } from 'theme-ui';
 
 function UserForm({ onClose }) {
   const {
