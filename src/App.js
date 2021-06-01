@@ -1,13 +1,16 @@
 import React from 'react';
-import { ThemeProvider } from 'theme-ui';
 import theme from './theme/theme';
+import { ThemeProvider } from 'theme-ui';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
+import { RecoilRoot } from 'recoil';
+
+// COMPONENTS AND CONTAINERS
 import Home from './containers/Home';
 import Header from './components/Header';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
-import { ToastProvider } from 'react-toast-notifications';
 import TaskDetails from './containers/TaskDetails';
 import SkeletonTaskDetails from './components/SkeletonTaskDetails';
+
 function App() {
   return (
     <RecoilRoot>

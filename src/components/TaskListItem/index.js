@@ -32,6 +32,7 @@ function TaskListItem({ title, id, completed }) {
         <Box sx={{ overflowWrap: 'break-word' }}>{title}</Box>
       </Link>
       <IconButton
+        onClick={completed ? handleDeleteTask : handleUpdateTask}
         aria-label={
           completed ? 'Usunięcie zadania' : 'Zaznaczenie zadania jako wykonane'
         }
@@ -48,11 +49,7 @@ function TaskListItem({ title, id, completed }) {
           },
         }}
       >
-        {completed ? (
-          <FiTrash2 onClick={handleDeleteTask} />
-        ) : (
-          <FiCheck onClick={handleUpdateTask} />
-        )}
+        {completed ? <FiTrash2 /> : <FiCheck />}
       </IconButton>
     </Card>
   );
