@@ -1,20 +1,21 @@
 import React from 'react';
 import { Heading, Textarea, Flex, Button, Box } from 'theme-ui';
 import { useToasts } from 'react-toast-notifications';
+import { addTodo } from '../../api/todos';
 
 // Recoil
 import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import { addTodo } from '../../api/todos';
-import { newTaskTextState, counterCharsQuery } from '../../recoil/todo';
+//import { newTaskTextState, counterCharsQuery } from '../../recoil/todo';
 import { userState } from '../../recoil/user';
 
 function NewTaskPanel() {
-  const [newTask, setNewTask] = useRecoilState(newTaskTextState);
+  //const [newTask, setNewTask] = useRecoilState(newTaskTextState);
   const user = useRecoilValueLoadable(userState);
-  const counterChars = useRecoilValue(counterCharsQuery);
+  //const counterChars = useRecoilValue(counterCharsQuery);
+  const newTask = '';
   const { addToast } = useToasts();
   const handleOnChangeText = (e) => {
-    setNewTask(e.target.value);
+    //setNewTask(e.target.value);
   };
   const handlePostNewTask = (e) => {
     if (!newTask) {
@@ -53,14 +54,14 @@ function NewTaskPanel() {
               autoDismiss: true,
             });
           }
-          setNewTask('');
+          //setNewTask('');
         })
         .catch(() => {
           addToast('Nie udało się stworzyć zadania!', {
             appearance: 'error',
             autoDismiss: true,
           });
-          setNewTask('');
+          //setNewTask('');
         });
   };
   return (
@@ -80,7 +81,7 @@ function NewTaskPanel() {
       <Textarea
         placeholder='Wpisz swoje zadanie'
         rows={20}
-        value={newTask}
+        value={'newTask'}
         onChange={handleOnChangeText}
       />
 
@@ -91,7 +92,7 @@ function NewTaskPanel() {
           margin: '0px auto',
         }}
       >
-        <Box sx={{ color: 'forms' }}>{counterChars}</Box>
+        <Box sx={{ color: 'forms' }}>100/600</Box>
         <Button
           aria-label='Dodaj zadanie'
           variant='secondary'

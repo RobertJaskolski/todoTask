@@ -7,11 +7,21 @@ import TasksList from '../../components/TasksList';
 import PaginationTasks from '../../components/PaginationTasks';
 
 // Recoil
-import { useRecoilValue } from 'recoil';
-import { tasksState } from '../../recoil/todos';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import {
+  todosResponseState,
+  todosStatsQuery,
+  filterTodosState,
+} from '../../recoil/todo';
 
 function TasksListPanel() {
-  const { tasksList, pagination } = useRecoilValue(tasksState);
+  const { todoList, pagination } = useRecoilValue(todosResponseState);
+  const { totalCompleted, totalUncompleted } = useRecoilValue(todosStatsQuery);
+  const [filters, setFilters] = useRecoilState(filterTodosState);
+
+  const handleToggleCompleteFilter = () => {
+    setFilters({ ...filters, completed: !filters.completed });
+  };
 
   return (
     <Box
@@ -26,7 +36,12 @@ function TasksListPanel() {
       }}
     >
       <Box sx={{ width: '90%', margin: '0px auto' }}>
-        <InfoAboutTasks />
+        <InfoAboutTasks
+          totalCompleted={totalCompleted}
+          totalUncompleted={totalUncompleted}
+          handleToggleCompleted={handleToggleCompleteFilter}
+          completed={filters?.completed}
+        />
       </Box>
       <Box
         sx={{
@@ -39,7 +54,7 @@ function TasksListPanel() {
         <PaginationTasks pagination={pagination} />
       </Box>
 
-      <TasksList tasksList={tasksList} />
+      <TasksList todoList={todoList} />
 
       <Box
         sx={{

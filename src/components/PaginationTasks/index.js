@@ -9,7 +9,7 @@ import {
 
 // Recoil
 import { useRecoilState } from 'recoil';
-import { currentPageState } from '../../recoil/todos';
+import { currentPageState } from '../../recoil/todo';
 
 function PaginationTasks({ pagination }) {
   const { total, pages } = pagination;

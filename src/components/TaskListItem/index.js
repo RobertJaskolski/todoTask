@@ -7,20 +7,20 @@ import { deleteTodo, updateTodo } from '../../api/todos';
 import Link from '../Link';
 
 // Recoil
-import { useSetRecoilState } from 'recoil';
-import { forceReloadState } from '../../recoil/todo';
+//import { useSetRecoilState } from 'recoil';
+//import { forceReloadState } from '../../recoil/todo';
 
 function TaskListItem({ title, id, completed }) {
-  const setForceReloadState = useSetRecoilState(forceReloadState);
+  //const setForceReloadState = useSetRecoilState(forceReloadState);
 
   const handleUpdateTask = async (e) => {
     await updateTodo({ task: { id }, newTaskInfo: { completed: true } });
-    setForceReloadState((x) => x + 1);
+    //setForceReloadState((x) => x + 1);
   };
 
   const handleDeleteTask = (e) => {
     deleteTodo({ task: { id } });
-    setForceReloadState((x) => x + 1);
+    //setForceReloadState((x) => x + 1);
   };
   return (
     <Card variant={completed ? 'completed' : 'uncompleted'}>

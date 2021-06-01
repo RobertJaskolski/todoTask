@@ -1,6 +1,6 @@
 import { atom, selector } from 'recoil';
-import { handleCheckUser } from '../utils';
-import { DEFAULT_USER } from '../consts';
+import { handleCheckUser } from '../../utils';
+import { DEFAULT_USER } from '../../consts';
 
 export const checkUserQuery = selector({
   key: 'checkUserQuery',

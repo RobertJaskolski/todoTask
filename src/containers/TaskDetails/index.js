@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Flex, Box, Heading, Button } from 'theme-ui';
 import { useParams, useHistory } from 'react-router-dom';
 import { handleDateToString } from '../../utils';
+import { deleteTodo } from '../../api/todos';
 
 // Components
 import TaskForm from '../../components/TaskForm';
@@ -10,19 +11,19 @@ import TaskForm from '../../components/TaskForm';
 import WithModal from '../../hoc/WithModal';
 
 // Recoil
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { currentTaskIDState, taskState } from '../../recoil/todo';
-import { deleteTodo } from '../../api/todos';
-import { forceReloadState } from '../../recoil/todo';
+//import { useSetRecoilState, useRecoilValue } from 'recoil';
+//import { currentTaskIDState, taskState } from '../../recoil/todo';
+//import { forceReloadState } from '../../recoil/todo';
 
 const TaskFormModal = WithModal(TaskForm);
 
 function TaskDetails() {
-  const setForceReloadState = useSetRecoilState(forceReloadState);
+  //const setForceReloadState = useSetRecoilState(forceReloadState);
   const { id } = useParams();
   const history = useHistory();
-  const setCurrentTaskID = useSetRecoilState(currentTaskIDState);
-  const task = useRecoilValue(taskState);
+  //const setCurrentTaskID = useSetRecoilState(currentTaskIDState);
+  //const task = useRecoilValue(taskState);
+  const task = {};
   const [showModal, setShowModal] = useState(false);
   const handleGoBack = (e) => {
     history.goBack();
@@ -32,11 +33,11 @@ function TaskDetails() {
   };
   const handleDeleteTask = (e) => {
     deleteTodo({ task });
-    setForceReloadState((x) => x + 1);
+    //setForceReloadState((x) => x + 1);
     history.push('/');
   };
   useEffect(() => {
-    setCurrentTaskID(id);
+    //setCurrentTaskID(id);
   });
 
   return (

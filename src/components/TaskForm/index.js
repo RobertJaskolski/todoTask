@@ -13,18 +13,18 @@ import { useForm } from 'react-hook-form';
 import { updateTodo } from '../../api/todos';
 
 // Recoil
-import { useSetRecoilState } from 'recoil';
-import { forceReloadState } from '../../recoil/todo';
+//import { useSetRecoilState } from 'recoil';
+//import { forceReloadState } from '../../recoil/todo';
 
 function TaskForm({ onClose, task }) {
-  const setForceReloadState = useSetRecoilState(forceReloadState);
+  //const setForceReloadState = useSetRecoilState(forceReloadState);
   const { register, handleSubmit } = useForm();
   const handleUpdateTask = async ({ data = {} }) => {
     return await updateTodo({ task, newTaskInfo: data }).then((res) => res);
   };
   const handleSubmitEditTask = (data) => {
     handleUpdateTask({ data });
-    setForceReloadState((x) => x + 1);
+    //setForceReloadState((x) => x + 1);
     onClose();
   };
 

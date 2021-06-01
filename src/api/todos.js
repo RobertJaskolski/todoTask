@@ -14,7 +14,9 @@ export const getTodos = ({ page = 1, q = '' }) =>
     endpoint: '/todos',
     query: `?page=${page}${q}`,
   }).then((res) => {
-    return { tasksList: [...res.data], pagination: res.meta.pagination };
+    if (res.code === 200)
+      return { todoList: [...res.data], pagination: res.meta.pagination };
+    if (res.code !== 200) throw 'Loading data error';
   });
 
 // POST
