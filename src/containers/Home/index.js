@@ -11,10 +11,14 @@ import SkeletonTasksListPanel from '../../components/SkeletonTasksListPanel';
 // ErrorBoundarys
 import ErrorBoundaryForList from '../../components/ErrorBoundaryForList';
 
+// Hoc
+import WithUser from '../../hoc/WithUser';
+const NewTaskPanelWithUser = WithUser(NewTaskPanel);
+
 function Home() {
   return (
     <Flex sx={{ flexWrap: 'wrap' }}>
-      <NewTaskPanel />
+      <NewTaskPanelWithUser />
       <ErrorBoundaryForList>
         <React.Suspense fallback={<SkeletonTasksListPanel />}>
           <TasksListPanel />

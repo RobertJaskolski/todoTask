@@ -1,3 +1,4 @@
+import { DefaultValue } from 'recoil';
 import { getUserByEmail, addUser, updateUser } from './api/user';
 import { DEFAULT_USER } from './consts';
 
@@ -19,14 +20,38 @@ export const handleDateToString = (stringDate) => {
 
 // CHECK USER
 export const handleCheckUser = async ({ user = DEFAULT_USER }) => {
-  let checkUser = await getUserByEmail({ user });
+  const checkUser = await getUserByEmail({ user });
+
   if (checkUser?.length === 0) {
-    checkUser = await addUser({ user });
-    return checkUser;
+    const response = await addUser({ user });
+    return response;
   }
+
   if (checkUser[0].name !== user.name || checkUser[0].gender !== user.gender) {
-    checkUser = await updateUser({ newUserInfo: user, user: checkUser[0] });
-    return checkUser;
+    const response = await updateUser({
+      newUserInfo: user,
+      user: checkUser[0],
+    });
+    return response;
   }
-  return checkUser;
+
+  return checkUser[0];
 };
+
+// LocalStorage Persist (User)
+export const localStorageEffect =
+  (key) =>
+  ({ setSelf, onSet }) => {
+    const savedValue = localStorage.getItem(key);
+    if (savedValue != null) {
+      setSelf(JSON.parse(savedValue));
+    }
+
+    onSet((newValue) => {
+      if (newValue instanceof DefaultValue) {
+        localStorage.removeItem(key);
+      } else {
+        localStorage.setItem(key, JSON.stringify(newValue));
+      }
+    });
+  };

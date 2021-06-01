@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Heading, Textarea, Flex, Button, Box } from 'theme-ui';
 import { useToasts } from 'react-toast-notifications';
 import { addTodo } from '../../api/todos';
 
 // Recoil
-import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import { userState } from '../../recoil/user';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { newTodoTextState, newTodoTextLengthQuery } from '../../recoil/todo';
 
 function NewTaskPanel() {
   const [newTodoText, setNewTodoText] = useRecoilState(newTodoTextState);
-  const user = useRecoilValueLoadable(userState);
+  const user = { contents: { id: 344 } };
   const todoTextLenght = useRecoilValue(newTodoTextLengthQuery);
   const { addToast } = useToasts();
 
@@ -63,6 +62,8 @@ function NewTaskPanel() {
           setNewTodoText('');
         });
   };
+
+  //useEffect(() => {});
 
   return (
     <Box

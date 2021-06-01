@@ -2,24 +2,15 @@ import React from 'react';
 import { Flex, Box, Input, Label, Radio, Button, Close } from 'theme-ui';
 import { useForm } from 'react-hook-form';
 
-// Recoil
-import { useRecoilState } from 'recoil';
-import { newUserState } from '../../recoil/user';
-
-function UserForm({ onClose }) {
+function UserForm({ onClose, user, setNewUser }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [newUser, setNewUser] = useRecoilState(newUserState);
+
   const handleSaveNewUser = (data) => {
-    const { name, email, gender } = data;
-    setNewUser({
-      name,
-      email,
-      gender,
-    });
+    setNewUser({ ...data });
     onClose();
   };
   return (
@@ -42,7 +33,7 @@ function UserForm({ onClose }) {
         <Input
           {...register('name', { required: true })}
           placeholder='Wpisz nazwę...'
-          defaultValue={newUser.name}
+          defaultValue={user.state === 'hasValue' && user.contents.name}
         />
       </Label>
       <Label>
@@ -51,7 +42,7 @@ function UserForm({ onClose }) {
           {...register('email', { required: true })}
           type='email'
           placeholder='Wpisz email...'
-          defaultValue={newUser.email}
+          defaultValue={user.state === 'hasValue' && user.contents.email}
         />
       </Label>
       <Label sx={{ justifyContent: 'flex-start' }}>
@@ -59,7 +50,9 @@ function UserForm({ onClose }) {
         <Radio
           {...register('gender', { required: true })}
           value='Male'
-          defaultChecked={newUser.gender === 'Male'}
+          defaultChecked={
+            user.state === 'hasValue' && user.contents.gender === 'Male'
+          }
           name='gender'
         />
       </Label>
@@ -68,7 +61,9 @@ function UserForm({ onClose }) {
         <Radio
           {...register('gender', { required: true })}
           value='Female'
-          defaultChecked={newUser.gender === 'Female'}
+          defaultChecked={
+            user.state === 'hasValue' && user.contents.gender === 'Female'
+          }
           name='gender'
         />
       </Label>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, IconButton, Box } from 'theme-ui';
 import { FiTrash2, FiCheck } from 'react-icons/fi';
 import { deleteTodo, updateTodo } from '../../api/todos';
+import { useToasts } from 'react-toast-notifications';
 
 // Components
 import Link from '../Link';
@@ -12,14 +13,35 @@ import { useRefreshReques } from '../../hook/useRefreshReques';
 
 function TaskListItem({ title, id, completed }) {
   const forceRefreshTodos = useRefreshReques(requestIDtodos);
+  const { addToast } = useToasts();
 
   const handleUpdateTask = async (e) => {
-    await updateTodo({ todo: { id }, newData: { completed: true } });
+    await updateTodo({ todo: { id }, newData: { completed: true } }).catch(
+      (err) => {
+        addToast(err, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    );
+    addToast('Zadanie zaznaczono jako wykonane!', {
+      appearance: 'success',
+      autoDismiss: true,
+    });
     forceRefreshTodos();
   };
 
-  const handleDeleteTask = (e) => {
-    deleteTodo({ todo: { id } });
+  const handleDeleteTask = async (e) => {
+    addToast('Usunięto zadanie!', {
+      appearance: 'info',
+      autoDismiss: true,
+    });
+    await deleteTodo({ todo: { id } }).catch((err) => {
+      addToast(err, {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    });
     forceRefreshTodos();
   };
 
