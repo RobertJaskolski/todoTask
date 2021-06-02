@@ -1,39 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Flex, Box, Select, IconButton } from 'theme-ui';
+import PropTypes from 'prop-types';
 import {
   BsChevronDoubleLeft,
   BsChevronDoubleRight,
   BsChevronLeft,
   BsChevronRight,
 } from 'react-icons/bs';
-import { useRecoilState } from 'recoil';
-import { currentPageState } from '../../recoil/todos';
 
-function PaginationTasks({ pagination }) {
+function PaginationTodosList({
+  pagination,
+  handleNexPage,
+  handleBackPage,
+  handleGoToFirst,
+  handleGoToLast,
+  handleSelectPage,
+  currentPage,
+}) {
   const { total, pages } = pagination;
-  const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
 
-  const handleNexPage = (e) => {
-    setCurrentPage((page) => page + 1);
-  };
-  const handleBackPage = (e) => {
-    setCurrentPage((page) => page - 1);
-  };
-  const handleGoToFirst = (e) => {
-    setCurrentPage(1);
-  };
-  const handleGoToLast = (e) => {
-    setCurrentPage(pages);
-  };
-  const handleSelectPage = (e) => {
-    setCurrentPage(Number(e.target.value));
-  };
-
-  useEffect(() => {
-    if (currentPage > pages) {
-      setCurrentPage(1);
-    }
-  });
   return (
     <Flex
       sx={{
@@ -56,6 +41,7 @@ function PaginationTasks({ pagination }) {
       </Box>
       <Flex sx={{ flexBasis: ['100%', 'auto'] }}>
         <IconButton
+          aria-label='Idź do pierwszej strony'
           sx={{
             width: ['18%', '30px', '40px'],
             height: '40px',
@@ -67,6 +53,7 @@ function PaginationTasks({ pagination }) {
           <BsChevronDoubleLeft />
         </IconButton>
         <IconButton
+          aria-label='Cofnij stornę'
           sx={{
             width: ['18%', '30px', '40px'],
             height: '40px',
@@ -78,6 +65,7 @@ function PaginationTasks({ pagination }) {
           <BsChevronLeft />
         </IconButton>
         <Select
+          aria-label='zmień stronę'
           value={currentPage}
           onChange={handleSelectPage}
           sx={{ width: '60px' }}
@@ -91,6 +79,7 @@ function PaginationTasks({ pagination }) {
         </Select>
 
         <IconButton
+          aria-label='Następna strona'
           sx={{
             width: ['18%', '30px', '40px'],
             height: '40px',
@@ -103,6 +92,7 @@ function PaginationTasks({ pagination }) {
         </IconButton>
 
         <IconButton
+          aria-label='Idź do ostatniej strony'
           sx={{
             width: ['18%', '30px', '40px'],
             height: '40px',
@@ -118,4 +108,19 @@ function PaginationTasks({ pagination }) {
   );
 }
 
-export default PaginationTasks;
+PaginationTodosList.propTypes = {
+  pagination: PropTypes.exact({
+    limit: PropTypes.number,
+    page: PropTypes.number,
+    pages: PropTypes.number,
+    total: PropTypes.number,
+  }).isRequired,
+  handleNexPage: PropTypes.func.isRequired,
+  handleBackPage: PropTypes.func.isRequired,
+  handleGoToFirst: PropTypes.func.isRequired,
+  handleGoToLast: PropTypes.func.isRequired,
+  handleSelectPage: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+};
+
+export default PaginationTodosList;

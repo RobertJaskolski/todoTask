@@ -18,8 +18,15 @@ const formsTheme = {
     color: 'forms',
   },
   label: {
-    color: 'forms',
-    fontSize: [3, 3, null, 3],
+    fontSize: [3, 3, 4],
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    margin: '10px 0px',
+  },
+  input: {
+    fontSize: [3, 3, 4],
+    margin: '0px 0px 0px 15px',
   },
 };
 

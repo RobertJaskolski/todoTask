@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Flex, Box, Switch, useColorMode, Button } from 'theme-ui';
+import { compose } from 'ramda';
+
+// Components
+import UserForm from '../UserForm';
+
+// Hocs
+import WithModal from '../../hoc/WithModal';
+import WithUser from '../../hoc/WithUser';
+const UserFormModalWithUser = compose(WithModal, WithUser)(UserForm);
 
 function Header() {
   const [colorMode, setColorMode] = useColorMode();
-
+  const [showModal, setShowModal] = useState(false);
   const handleChangeColor = (e) => {
     setColorMode(colorMode === 'default' ? 'dark' : 'default');
+  };
+
+  const handleToggleModal = () => {
+    setShowModal(!showModal);
   };
   return (
     <Box
@@ -21,7 +34,11 @@ function Header() {
     >
       <Flex as='nav' sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <Button aria-label='Konfiguracja konta' variant='primary'>
+          <Button
+            aria-label='Konfiguracja konta'
+            variant='primary'
+            onClick={handleToggleModal}
+          >
             Konfiguracja konta
           </Button>
         </Box>
@@ -29,6 +46,7 @@ function Header() {
           <Switch onChange={handleChangeColor} />
         </Box>
       </Flex>
+      <UserFormModalWithUser onClose={handleToggleModal} isOpen={showModal} />
     </Box>
   );
 }

@@ -1,15 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, Flex, Switch } from 'theme-ui';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { filterState, tasksStats } from '../../recoil/todos';
 
-function InfoAboutTasks() {
-  const [completed, setCompleted] = useRecoilState(filterState);
-  const { totalCompletedNum, totalUncompletedNum } = useRecoilValue(tasksStats);
-  const handleToggleCompleted = (e) => {
-    setCompleted(!completed);
-  };
-
+function InfoAboutTodos({
+  completed,
+  totalCompleted,
+  totalUncompleted,
+  handleToggleCompleted,
+  my,
+  handleToggleMy,
+}) {
   return (
     <Flex sx={{ flexWrap: 'wrap' }}>
       <Box
@@ -26,7 +26,7 @@ function InfoAboutTasks() {
           opacity: !completed ? 0.9 : 0,
         }}
       >
-        Zakończone: {totalCompletedNum}
+        Zakończone: {totalCompleted}
       </Box>
       <Box
         sx={{
@@ -42,15 +42,14 @@ function InfoAboutTasks() {
           opacity: !completed ? 0.9 : 0,
         }}
       >
-        Niezakończone: {totalUncompletedNum}
+        Niezakończone: {totalUncompleted}
       </Box>
       <Box
         sx={{
           fontWeight: 'bold',
-          padding: '10px 20px',
+          padding: '0px 20px',
           opacity: 0.9,
           flexBasis: ['100%'],
-          mb: ['10px', null, '0px'],
         }}
       >
         <Switch
@@ -60,8 +59,33 @@ function InfoAboutTasks() {
           aria-label='Ukryj zakończone'
         />
       </Box>
+      <Box
+        sx={{
+          fontWeight: 'bold',
+          padding: '0px 20px',
+          opacity: 0.9,
+          flexBasis: ['100%'],
+          mb: ['10px', null, '0px'],
+        }}
+      >
+        <Switch
+          defaultChecked={my}
+          onChange={handleToggleMy}
+          label='Pokaż moje'
+          aria-label='Pokaż moje'
+        />
+      </Box>
     </Flex>
   );
 }
 
-export default InfoAboutTasks;
+InfoAboutTodos.propTypes = {
+  completed: PropTypes.bool.isRequired,
+  totalCompleted: PropTypes.number.isRequired,
+  totalUncompleted: PropTypes.number.isRequired,
+  handleToggleCompleted: PropTypes.func.isRequired,
+  my: PropTypes.bool.isRequired,
+  handleToggleMy: PropTypes.func.isRequired,
+};
+
+export default InfoAboutTodos;
