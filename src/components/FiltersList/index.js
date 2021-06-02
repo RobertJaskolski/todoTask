@@ -11,7 +11,7 @@ function FiltersList({
   search,
 }) {
   return (
-    <Box sx={{ width: '92%', margin: '0px auto' }}>
+    <Box sx={{ width: '92%', margin: '0px auto', color: 'forms' }}>
       <Flex
         sx={{
           flexWrap: 'wrap',
