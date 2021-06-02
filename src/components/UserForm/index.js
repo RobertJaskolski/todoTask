@@ -1,23 +1,17 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useRecoilState } from 'recoil';
-import { newUserState } from '../../recoil/user';
 import { Flex, Box, Input, Label, Radio, Button, Close } from 'theme-ui';
+import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
 
-function UserForm({ onClose }) {
+function UserForm({ onClose, user, setNewUser }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [newUser, setNewUser] = useRecoilState(newUserState);
+
   const handleSaveNewUser = (data) => {
-    const { name, email, gender } = data;
-    setNewUser({
-      name,
-      email,
-      gender,
-    });
+    setNewUser({ ...data });
     onClose();
   };
   return (
@@ -40,7 +34,7 @@ function UserForm({ onClose }) {
         <Input
           {...register('name', { required: true })}
           placeholder='Wpisz nazwę...'
-          defaultValue={newUser.name}
+          defaultValue={(user.state === 'hasValue' && user.contents.name) || ''}
         />
       </Label>
       <Label>
@@ -49,7 +43,9 @@ function UserForm({ onClose }) {
           {...register('email', { required: true })}
           type='email'
           placeholder='Wpisz email...'
-          defaultValue={newUser.email}
+          defaultValue={
+            (user.state === 'hasValue' && user.contents.email) || ''
+          }
         />
       </Label>
       <Label sx={{ justifyContent: 'flex-start' }}>
@@ -57,7 +53,9 @@ function UserForm({ onClose }) {
         <Radio
           {...register('gender', { required: true })}
           value='Male'
-          defaultChecked={newUser.gender === 'Male'}
+          defaultChecked={
+            user.state === 'hasValue' && user.contents.gender === 'Male'
+          }
           name='gender'
         />
       </Label>
@@ -66,7 +64,9 @@ function UserForm({ onClose }) {
         <Radio
           {...register('gender', { required: true })}
           value='Female'
-          defaultChecked={newUser.gender === 'Female'}
+          defaultChecked={
+            user.state === 'hasValue' && user.contents.gender === 'Female'
+          }
           name='gender'
         />
       </Label>
@@ -76,5 +76,31 @@ function UserForm({ onClose }) {
     </form>
   );
 }
+
+UserForm.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  setNewUser: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    state: PropTypes.string,
+    contents: PropTypes.oneOfType([
+      PropTypes.instanceOf(Promise),
+      PropTypes.shape({
+        created_at: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.instanceOf(Date),
+        ]),
+        updated_at: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.instanceOf(Date),
+        ]),
+        id: PropTypes.number,
+        gender: PropTypes.oneOf(['Male', 'Female']),
+        status: PropTypes.string,
+        email: PropTypes.string,
+        name: PropTypes.string,
+      }),
+    ]),
+  }).isRequired,
+};
 
 export default UserForm;

@@ -1,43 +1,50 @@
 import React from 'react';
 import { Heading, Textarea, Flex, Button, Box } from 'theme-ui';
-import { addTodo } from '../../api/todos';
-import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import { newTaskTextState, counterCharsQuery } from '../../recoil/todo';
-import { userState } from '../../recoil/user';
+import PropTypes from 'prop-types';
 import { useToasts } from 'react-toast-notifications';
+import { addTodo } from '../../api/todos';
 
-function NewTaskPanel() {
-  const [newTask, setNewTask] = useRecoilState(newTaskTextState);
-  const user = useRecoilValueLoadable(userState);
-  const counterChars = useRecoilValue(counterCharsQuery);
+// Recoil
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  newTodoTextState,
+  newTodoTextLengthQuery,
+  requestIDtodos,
+} from '../../recoil/todo';
+import { useRefreshReques } from '../../hook/useRefreshReques';
+
+function NewTodoPanel({ user }) {
+  const foreceRefreshTodos = useRefreshReques(requestIDtodos);
+  const [newTodoText, setNewTodoText] = useRecoilState(newTodoTextState);
+  const todoTextLenght = useRecoilValue(newTodoTextLengthQuery);
   const { addToast } = useToasts();
+
   const handleOnChangeText = (e) => {
-    setNewTask(e.target.value);
+    setNewTodoText(e.target.value);
   };
-  const handlePostNewTask = (e) => {
-    if (!newTask) {
+
+  const handlePostNewTodo = (e) => {
+    if (!newTodoText) {
       addToast('Dodaj treść zadania', {
         appearance: 'info',
         autoDismiss: true,
       });
       return;
     }
-    if (newTask.length > 320) {
+    if (newTodoText?.length > 200) {
       addToast('Treść jest za duża', {
         appearance: 'info',
         autoDismiss: true,
       });
       return;
     }
-    if (user?.contents[0])
+    if (user?.contents)
       addTodo({
         data: {
-          title: newTask,
+          title: newTodoText,
           completed: false,
-          created_at: new Date(),
-          updated_at: new Date(),
         },
-        user_id: user.contents[0].id,
+        user_id: user.contents.id,
       })
         .then((res) => {
           if (res.code !== 201 && res.code !== 200) {
@@ -50,17 +57,19 @@ function NewTaskPanel() {
               appearance: 'success',
               autoDismiss: true,
             });
+            foreceRefreshTodos();
           }
-          setNewTask('');
+          setNewTodoText('');
         })
         .catch(() => {
           addToast('Nie udało się stworzyć zadania!', {
             appearance: 'error',
             autoDismiss: true,
           });
-          setNewTask('');
+          setNewTodoText('');
         });
   };
+
   return (
     <Box
       as='section'
@@ -78,7 +87,7 @@ function NewTaskPanel() {
       <Textarea
         placeholder='Wpisz swoje zadanie'
         rows={20}
-        value={newTask}
+        value={newTodoText}
         onChange={handleOnChangeText}
       />
 
@@ -89,11 +98,11 @@ function NewTaskPanel() {
           margin: '0px auto',
         }}
       >
-        <Box sx={{ color: 'forms' }}>{counterChars}</Box>
+        <Box sx={{ color: 'forms' }}>{todoTextLenght}</Box>
         <Button
           aria-label='Dodaj zadanie'
           variant='secondary'
-          onClick={handlePostNewTask}
+          onClick={handlePostNewTodo}
         >
           Dodaj zadanie
         </Button>
@@ -102,4 +111,28 @@ function NewTaskPanel() {
   );
 }
 
-export default NewTaskPanel;
+NewTodoPanel.propTypes = {
+  user: PropTypes.shape({
+    state: PropTypes.string.isRequired,
+    contents: PropTypes.oneOfType([
+      PropTypes.instanceOf(Promise),
+      PropTypes.shape({
+        created_at: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.instanceOf(Date),
+        ]),
+        updated_at: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.instanceOf(Date),
+        ]),
+        id: PropTypes.number,
+        gender: PropTypes.oneOf(['Male', 'Female']),
+        status: PropTypes.string,
+        email: PropTypes.string,
+        name: PropTypes.string,
+      }),
+    ]).isRequired,
+  }),
+};
+
+export default NewTodoPanel;

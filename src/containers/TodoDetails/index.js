@@ -1,23 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Flex, Box, Heading, Button } from 'theme-ui';
 import { useParams, useHistory } from 'react-router-dom';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { currentTaskIDState, taskState } from '../../recoil/todo';
 import { handleDateToString } from '../../utils';
-import WithModal from '../../hoc/WithModal';
-import TaskForm from '../../components/TaskForm';
 import { deleteTodo } from '../../api/todos';
-import { forceReloadState } from '../../recoil/todo';
 
-const TaskFormModal = WithModal(TaskForm);
+// Components
+import EditTodoForm from '../../components/EditTodoForm';
 
-function TaskDetails() {
-  const setForceReloadState = useSetRecoilState(forceReloadState);
+// Hocs
+import WithModal from '../../hoc/WithModal';
+
+// Recoil
+import { useRecoilValue } from 'recoil';
+import { todoResponseState } from '../../recoil/todo';
+import { getUserQuery } from '../../recoil/user';
+import { useRefreshReques } from '../../hook/useRefreshReques';
+import { requestIDtodos } from '../../recoil/todo';
+// Modal
+const EditTodoFormModal = WithModal(EditTodoForm);
+
+function TodoDetails() {
+  const forceRefreshTodos = useRefreshReques(requestIDtodos);
   const { id } = useParams();
   const history = useHistory();
-  const setCurrentTaskID = useSetRecoilState(currentTaskIDState);
-  const task = useRecoilValue(taskState);
   const [showModal, setShowModal] = useState(false);
+  const todo = useRecoilValue(todoResponseState(id));
+  const { title, created_at, updated_at, completed, user_id } = todo;
+  const user = useRecoilValue(getUserQuery(user_id));
+  const { name } = user;
+
   const handleGoBack = (e) => {
     history.goBack();
   };
@@ -25,13 +36,10 @@ function TaskDetails() {
     setShowModal(!showModal);
   };
   const handleDeleteTask = (e) => {
-    deleteTodo({ task });
-    setForceReloadState((x) => x + 1);
+    deleteTodo({ todo });
+    forceRefreshTodos();
     history.push('/');
   };
-  useEffect(() => {
-    setCurrentTaskID(id);
-  });
 
   return (
     <Flex
@@ -60,7 +68,7 @@ function TaskDetails() {
           }}
           as='h2'
         >
-          <b>Tytuł:</b> {task?.title}
+          <b>Tytuł:</b> {title}
         </Heading>
         <Heading
           sx={{
@@ -71,16 +79,27 @@ function TaskDetails() {
           }}
           as='h2'
         >
-          <b>Zakończone:</b> {task?.completed ? 'Tak' : 'Nie'}
+          <b>Zakończone:</b> {completed ? 'Tak' : 'Nie'}
+        </Heading>
+        <Heading
+          sx={{
+            m: '20px 0px',
+            textAlign: 'left',
+            fontWeight: 'text',
+            textTransform: 'none',
+          }}
+          as='h2'
+        >
+          <b>Twórca:</b> {name}
         </Heading>
         <Flex sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <Box>
             <b>Utworzono: </b>
-            {handleDateToString(task?.created_at)}
+            {handleDateToString(created_at)}
           </Box>
           <Box>
             <b>Aktualizacja: </b>
-            {handleDateToString(task?.updated_at)}
+            {handleDateToString(updated_at)}
           </Box>
         </Flex>
         <Flex
@@ -103,8 +122,8 @@ function TaskDetails() {
           </Box>
         </Flex>
       </Box>
-      <TaskFormModal
-        task={task}
+      <EditTodoFormModal
+        todo={todo}
         isOpen={showModal}
         onClose={handleToggleModal}
       />
@@ -112,4 +131,4 @@ function TaskDetails() {
   );
 }
 
-export default TaskDetails;
+export default TodoDetails;

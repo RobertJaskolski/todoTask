@@ -1,17 +1,27 @@
 import React from 'react';
 import { Flex } from 'theme-ui';
-import NewTaskPanel from '../NewTaskPanel';
-import TasksListPanel from '../TasksListPanel';
-import SkeletonTasksListPanel from '../../components/SkeletonTasksListPanel';
+
+// Containers
+import NewTodoPanel from '../NewTodoPanel';
+import TodoListPanel from '../TodoListPanel';
+
+// Skeletons
+import SkeletonTodosListPanel from '../../components/SkeletonTodosListPanel';
+
+// ErrorBoundarys
 import ErrorBoundaryForList from '../../components/ErrorBoundaryForList';
+
+// Hoc
+import WithUser from '../../hoc/WithUser';
+const NewTaskPanelWithUser = WithUser(NewTodoPanel);
 
 function Home() {
   return (
     <Flex sx={{ flexWrap: 'wrap' }}>
-      <NewTaskPanel />
+      <NewTaskPanelWithUser />
       <ErrorBoundaryForList>
-        <React.Suspense fallback={<SkeletonTasksListPanel />}>
-          <TasksListPanel />
+        <React.Suspense fallback={<SkeletonTodosListPanel />}>
+          <TodoListPanel />
         </React.Suspense>
       </ErrorBoundaryForList>
     </Flex>

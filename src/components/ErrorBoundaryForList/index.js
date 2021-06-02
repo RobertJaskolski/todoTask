@@ -1,5 +1,6 @@
 import React from 'react';
-import SkeletonTasksListPanel from '../SkeletonTasksListPanel';
+import SkeletonTodosListPanel from '../SkeletonTodosListPanel';
+
 class ErrorBoundaryForList extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +12,7 @@ class ErrorBoundaryForList extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      return <SkeletonTasksListPanel isError />;
+      return <SkeletonTodosListPanel isError />;
     }
     return this.props.children;
   }
