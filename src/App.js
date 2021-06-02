@@ -5,14 +5,14 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ToastProvider } from 'react-toast-notifications';
 import { RecoilRoot } from 'recoil';
 
+// ErrorBoundary
+import ErrorBoundaryForTodoDetails from './components/ErrorBoundaryForTodoDetails';
+
 // COMPONENTS AND CONTAINERS
 import Home from './containers/Home';
 import Header from './components/Header';
-import TodoDetails from './containers/TodoDetails';
 import SkeletonTodoDetails from './components/SkeletonTodoDetails';
-
-// ErrorBoundary
-import ErrorBoundaryForTodoDetails from './components/ErrorBoundaryForTodoDetails';
+const TodoDetails = React.lazy(() => import('./containers/TodoDetails'));
 
 function App() {
   return (
