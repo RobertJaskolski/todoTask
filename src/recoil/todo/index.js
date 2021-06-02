@@ -34,39 +34,17 @@ export const todosResponseQuery = selector({
     const { completed, my } = get(filterTodosState);
     const user = get(currentUserState);
     const page = get(currentPageState);
+    const search = get(todoSearchText);
+    let query = '';
 
-    // Only completed todos
-    if (my && completed) {
-      const response = await getTodos({
-        page,
-        q: `&user_id=${user.id}&completed=true`,
-      }).catch((err) => {
-        throw err;
-      });
-      return response;
-    }
-    if (completed) {
-      const response = await getTodos({
-        page,
-        q: '&completed=true',
-      }).catch((err) => {
-        throw err;
-      });
-      return response;
-    }
-    if (my) {
-      const response = await getTodos({
-        page,
-        q: `&user_id=${user.id}`,
-      }).catch((err) => {
-        throw err;
-      });
-      return response;
-    }
+    if (my) query += `&user_id=${user.id}`;
+    if (completed) query += `&completed=false`;
+    if (search) query += `&title=${search}`;
 
     // All todos
     const response = await getTodos({
       page,
+      q: query,
     }).catch((err) => {
       throw err;
     });
@@ -125,4 +103,10 @@ export const todoResponseQuery = selectorFamily({
 export const todoResponseState = atomFamily({
   key: 'todoResponseState',
   default: todoResponseQuery,
+});
+
+// Todo searchText
+export const todoSearchText = atom({
+  key: 'todoSearchText',
+  default: '',
 });

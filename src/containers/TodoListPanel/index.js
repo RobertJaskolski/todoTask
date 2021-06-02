@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box } from 'theme-ui';
+import { Box, Flex } from 'theme-ui';
 
 // Components
 import InfoAboutTodos from '../../components/InfoAboutTodos';
@@ -18,16 +18,8 @@ import {
 function TodoListPanel() {
   const { todoList, pagination } = useRecoilValue(todosResponseState);
   const { totalCompleted, totalUncompleted } = useRecoilValue(todosStatsQuery);
-  const [filters, setFilters] = useRecoilState(filterTodosState);
+  const { completed } = useRecoilValue(filterTodosState);
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
-
-  // Handlers filters
-  const handleToggleCompleteFilter = () => {
-    setFilters({ ...filters, completed: !filters.completed });
-  };
-  const handleToggleMyFilter = () => {
-    setFilters({ ...filters, my: !filters.my });
-  };
 
   // Handlers pagination
   const handleNexPage = () => {
@@ -53,26 +45,15 @@ function TodoListPanel() {
   });
 
   return (
-    <Box
-      as='section'
-      bg='muted'
-      sx={{
-        flexBasis: ['100%', null, '60%'],
-        minheight: '100vh',
-        maxHeight: [null, null, '100vh'],
-        pt: 50,
-        overflow: 'auto',
-      }}
-    >
+    <>
       <Box sx={{ width: '90%', margin: '0px auto' }}>
-        <InfoAboutTodos
-          totalCompleted={totalCompleted}
-          totalUncompleted={totalUncompleted}
-          handleToggleCompleted={handleToggleCompleteFilter}
-          completed={filters?.completed}
-          handleToggleMy={handleToggleMyFilter}
-          my={filters?.my}
-        />
+        <Flex sx={{ flexWrap: 'wrap' }}>
+          <InfoAboutTodos
+            totalCompleted={totalCompleted}
+            totalUncompleted={totalUncompleted}
+            completed={completed}
+          />
+        </Flex>
       </Box>
       <Box
         sx={{
@@ -113,7 +94,7 @@ function TodoListPanel() {
           handleSelectPage={handleSelectPage}
         />
       </Box>
-    </Box>
+    </>
   );
 }
 
