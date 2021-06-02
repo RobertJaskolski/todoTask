@@ -1,5 +1,6 @@
 import React from 'react';
 import { Flex, Box, Select, IconButton } from 'theme-ui';
+import PropTypes from 'prop-types';
 import {
   BsChevronDoubleLeft,
   BsChevronDoubleRight,
@@ -106,5 +107,20 @@ function PaginationTodosList({
     </Flex>
   );
 }
+
+PaginationTodosList.propTypes = {
+  pagination: PropTypes.exact({
+    limit: PropTypes.number,
+    page: PropTypes.number,
+    pages: PropTypes.number,
+    total: PropTypes.number,
+  }).isRequired,
+  handleNexPage: PropTypes.func.isRequired,
+  handleBackPage: PropTypes.func.isRequired,
+  handleGoToFirst: PropTypes.func.isRequired,
+  handleGoToLast: PropTypes.func.isRequired,
+  handleSelectPage: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+};
 
 export default PaginationTodosList;

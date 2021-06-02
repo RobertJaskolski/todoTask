@@ -6,6 +6,7 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from 'react-icons/bs';
+import PropTypes from 'prop-types';
 
 function SkeletonTodosListPanel({ isError }) {
   return (
@@ -258,5 +259,9 @@ function SkeletonTodosListPanel({ isError }) {
     </Box>
   );
 }
+
+SkeletonTodosListPanel.propTypes = {
+  isError: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+};
 
 export default SkeletonTodosListPanel;

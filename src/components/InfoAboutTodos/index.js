@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, Flex, Switch } from 'theme-ui';
 
 function InfoAboutTodos({
@@ -77,5 +78,14 @@ function InfoAboutTodos({
     </Flex>
   );
 }
+
+InfoAboutTodos.propTypes = {
+  completed: PropTypes.bool.isRequired,
+  totalCompleted: PropTypes.number.isRequired,
+  totalUncompleted: PropTypes.number.isRequired,
+  handleToggleCompleted: PropTypes.func.isRequired,
+  my: PropTypes.bool.isRequired,
+  handleToggleMy: PropTypes.func.isRequired,
+};
 
 export default InfoAboutTodos;

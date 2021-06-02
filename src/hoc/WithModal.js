@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import { Flex, Box } from 'theme-ui';
 
 const WithModal = (WrappedComponent) => {
   const modalContainer = document.getElementById('modal');
-  const hocComponent = ({ isOpen, onClose, ...props }) => {
+  const HocComponent = ({ isOpen, onClose, ...props }) => {
     return isOpen
       ? ReactDOM.createPortal(
           <Flex
@@ -35,7 +36,12 @@ const WithModal = (WrappedComponent) => {
       : null;
   };
 
-  return hocComponent;
+  HocComponent.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+  };
+
+  return HocComponent;
 };
 
 export default WithModal;

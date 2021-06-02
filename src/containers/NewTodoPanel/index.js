@@ -1,5 +1,6 @@
 import React from 'react';
 import { Heading, Textarea, Flex, Button, Box } from 'theme-ui';
+import PropTypes from 'prop-types';
 import { useToasts } from 'react-toast-notifications';
 import { addTodo } from '../../api/todos';
 
@@ -109,5 +110,29 @@ function NewTodoPanel({ user }) {
     </Box>
   );
 }
+
+NewTodoPanel.propTypes = {
+  user: PropTypes.shape({
+    state: PropTypes.string.isRequired,
+    contents: PropTypes.oneOfType([
+      PropTypes.instanceOf(Promise),
+      PropTypes.shape({
+        created_at: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.instanceOf(Date),
+        ]),
+        updated_at: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.instanceOf(Date),
+        ]),
+        id: PropTypes.number,
+        gender: PropTypes.oneOf(['Male', 'Female']),
+        status: PropTypes.string,
+        email: PropTypes.string,
+        name: PropTypes.string,
+      }),
+    ]).isRequired,
+  }),
+};
 
 export default NewTodoPanel;

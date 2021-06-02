@@ -1,5 +1,6 @@
 import React from 'react';
 import { Flex, Box, Heading, Button, Spinner } from 'theme-ui';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
 function SkeletonTodoDetails({ isError }) {
@@ -88,5 +89,9 @@ function SkeletonTodoDetails({ isError }) {
     </Flex>
   );
 }
+
+SkeletonTodoDetails.propTypes = {
+  isError: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+};
 
 export default SkeletonTodoDetails;

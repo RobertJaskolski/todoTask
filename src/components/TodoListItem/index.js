@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, IconButton, Box } from 'theme-ui';
+import PropTypes from 'prop-types';
 import { FiTrash2, FiCheck } from 'react-icons/fi';
 import { deleteTodo, updateTodo } from '../../api/todos';
 import { useToasts } from 'react-toast-notifications';
@@ -80,5 +81,11 @@ function TodoListItem({ title, id, completed }) {
     </Card>
   );
 }
+
+TodoListItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  completed: PropTypes.bool.isRequired,
+};
 
 export default TodoListItem;
