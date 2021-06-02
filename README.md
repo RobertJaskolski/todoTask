@@ -19,6 +19,8 @@ The application was created as part of a recruitment task for a junior frontend 
 
 The application was created as part of a recruitment task for a junior frontend developer. As part of the task Create a TODO list in React.js with CRUD (https://gorest.co.in/).
 
+Live: https://robertjaskolski.github.io/todoTask/
+
 ### Technologies and libraries
 
 - React
@@ -31,23 +33,23 @@ The application was created as part of a recruitment task for a junior frontend 
 
 Home view
 
-![Home view](ss/home.jpg)
+![Home view](ss/homeSS.jpg)
 
 Home dark view
 
-![Home view](ss/homeDark.jpg)
+![Home view](ss/homeDarkSS.jpg)
 
 Edit profile view
 
-![Home view](ss/profile.jpg)
+![Home view](ss/profileSS.jpg)
 
 Todo details
 
-![Home view](ss/todo.jpg)
+![Home view](ss/todoSS.jpg)
 
 Edit todo details
 
-![Home view](ss/todoEdit.jpg)
+![Home view](ss/todoEditSS.jpg)
 
 ## Getting Started
 
