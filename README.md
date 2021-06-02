@@ -6,9 +6,10 @@ The application was created as part of a recruitment task for a junior frontend 
 
 - [General info](#general-info)
   - [Screenshotss](#screenshots)
-- [Technologies and libraries](#technologies-and-libraries)
+  - [Technologies and libraries](#technologies-and-libraries)
 - [Getting Started](#getting-started)
   - [Installation](#installation)
+  - [Available Scripts](#available-scripts)
 - [Features](#features)
 - [Status](#status)
 - [License](#license)
@@ -18,13 +19,35 @@ The application was created as part of a recruitment task for a junior frontend 
 
 The application was created as part of a recruitment task for a junior frontend developer. As part of the task Create a TODO list in React.js with CRUD (https://gorest.co.in/).
 
+### Technologies and libraries
+
 - React
 - Recoil
 - theme-ui
+- react-hook-form
+- ramda
 
 ### Screenshots - Design of application
 
-soon
+Home view
+
+![Home view](ss/home.jpg)
+
+Home dark view
+
+![Home view](ss/homeDark.jpg)
+
+Edit profile view
+
+![Home view](ss/profile.jpg)
+
+Todo details
+
+![Home view](ss/todo.jpg)
+
+Edit todo details
+
+![Home view](ss/todoEdit.jpg)
 
 ## Getting Started
 
@@ -37,8 +60,11 @@ The easiest way to get started is to follow few step to install all dependencies
 2. Install all dependencies:
    `yarn install`
 
-3. You can run the project in the developer mode:
-   `yarn install`
+3. Rename `.env` to `.env.local` and paste your API_KEY:
+   `REACT_APP_API_KEY=YOUR_API_KEY`
+
+4. You can run the project in the developer mode:
+   `yarn start`
 
 ### Available Scripts
 
@@ -66,11 +92,25 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 
 ## Features
 
-- soon
+**Todo**:
+
+- Browse the list of todos
+- Filtering the list (hiding completed, showing mine - assigned to the email)
+- Number of total completed and uncompleted
+- Adding a new todo
+- Preview of todo details
+- Editing existing todo
+- Deleting existing todo
+
+**Other**:
+
+- Toggle theme (light/dark))
+- Change user (Default is Karol Testowy, user changed when we change email)
+- User persist
 
 ## Status
 
-Project is in progress.
+The project is ready (Unit and integration tests can be added in the future).
 
 ## License
 
