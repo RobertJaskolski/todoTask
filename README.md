@@ -96,6 +96,7 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 
 - Browse the list of todos
 - Filtering the list (hiding completed, showing mine - assigned to the email)
+- Search by title
 - Number of total completed and uncompleted
 - Adding a new todo
 - Preview of todo details

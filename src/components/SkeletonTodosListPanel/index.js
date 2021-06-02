@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Switch, Spinner, Select, IconButton } from 'theme-ui';
+import { Box, Flex, Spinner, Select, IconButton } from 'theme-ui';
 import {
   BsChevronDoubleLeft,
   BsChevronDoubleRight,
@@ -7,21 +7,16 @@ import {
   BsChevronRight,
 } from 'react-icons/bs';
 import PropTypes from 'prop-types';
+// Recoil
+import { useRecoilValue } from 'recoil';
+import { filterTodosState, currentPageState } from '../../recoil/todo';
 
 function SkeletonTodosListPanel({ isError }) {
+  const { completed } = useRecoilValue(filterTodosState);
+  const currentPage = useRecoilValue(currentPageState);
+
   return (
-    <Box
-      as='section'
-      bg='muted'
-      sx={{
-        flexBasis: ['100%', null, '60%'],
-        minheight: '100vh',
-        maxHeight: [null, null, '100vh'],
-        pt: 50,
-        overflow: 'auto',
-      }}
-    >
-      {/* INFO SECTION */}
+    <>
       <Box sx={{ width: '90%', margin: '0px auto' }}>
         <Flex sx={{ flexWrap: 'wrap' }}>
           <Box
@@ -32,10 +27,13 @@ function SkeletonTodosListPanel({ isError }) {
               mb: '10px',
               fontWeight: 'bold',
               padding: '10px 20px',
-              opacity: 0,
+              backgroundColor: 'softGreen',
+              borderRadius: '5px',
+              boxShadow: '0 0 5px green',
+              opacity: !completed ? 0.9 : 0,
             }}
           >
-            Zakończone
+            Zakończone: <Spinner sx={{ width: '14px', height: '14px' }} />
           </Box>
           <Box
             sx={{
@@ -45,32 +43,14 @@ function SkeletonTodosListPanel({ isError }) {
               mb: '10px',
               fontWeight: 'bold',
               padding: '10px 20px',
-              opacity: 0,
+              backgroundColor: 'lightRed',
+              borderRadius: '5px',
+              boxShadow: '0 0 5px red',
+              opacity: !completed ? 0.9 : 0,
             }}
           >
             Niezakończone:
-          </Box>
-          <Box
-            sx={{
-              fontWeight: 'bold',
-              padding: '0px 20px',
-              opacity: 0.9,
-              flexBasis: ['100%'],
-              mb: ['10px', null, '0px'],
-            }}
-          >
-            <Switch label='Ukryj zakończone' aria-label='Ukryj zakończone' />
-          </Box>
-          <Box
-            sx={{
-              fontWeight: 'bold',
-              padding: '0px 20px',
-              opacity: 0.9,
-              flexBasis: ['100%'],
-              mb: ['10px', null, '0px'],
-            }}
-          >
-            <Switch label='Pokaż moje ' aria-label='Pokaż moje' />
+            <Spinner sx={{ width: '14px', height: '14px' }} />
           </Box>
         </Flex>
       </Box>
@@ -126,12 +106,7 @@ function SkeletonTodosListPanel({ isError }) {
               <BsChevronLeft />
             </IconButton>
             <Select aria-label='Wybierz stronę' sx={{ width: '60px' }}>
-              {10 &&
-                [...Array(10).keys()].map((x) => (
-                  <option key={x} value={x + 1}>
-                    {x + 1}
-                  </option>
-                ))}
+              <option value={currentPage}>{currentPage}</option>
             </Select>
 
             <IconButton
@@ -256,7 +231,7 @@ function SkeletonTodosListPanel({ isError }) {
           </Flex>
         </Flex>
       </Box>
-    </Box>
+    </>
   );
 }
 
